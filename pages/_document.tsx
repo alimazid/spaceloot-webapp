@@ -27,7 +27,6 @@ class CustomDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
           />
-          <!-- Global site tag (gtag.js) - Google Analytics -->
           <script async src="https://www.googletagmanager.com/gtag/js?id=G-61STCB7S69"></script>
           <script>
             window.dataLayer = window.dataLayer || [];
