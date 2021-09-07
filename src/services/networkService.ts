@@ -7,7 +7,6 @@ import { walletStore } from 'stores/walletStore'
 class NetworkService {
   init = async () => {
     const info = await walletService.info()
-    console.log(info)
     networkStore.setTerra(info.name, info.lcd, info.chainID)
     await walletService.init()
 

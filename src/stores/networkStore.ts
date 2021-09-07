@@ -3,7 +3,7 @@ import { defaultNetwork } from 'constants/networks'
 import { makeAutoObservable } from 'mobx'
 
 class NetworkStore {
-  terra: LCDClient = null
+  terra!: LCDClient
   lcd: string = ''
   name: string = ''
   chainID: string = ''

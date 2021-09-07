@@ -1,17 +1,11 @@
-import React from "react";
-import Document, {
-  Html,
-  Head,
-  Main,
-  NextScript,
-  DocumentContext,
-} from "next/document";
-import { ServerStyleSheets } from "@material-ui/core";
+import React from 'react'
+import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
+import { ServerStyleSheets } from '@material-ui/core'
 
 class CustomDocument extends Document {
   static async getInitialProps(ctx: any) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
+    const initialProps = await Document.getInitialProps(ctx)
+    return { ...initialProps }
   }
 
   render() {
@@ -51,28 +45,25 @@ class CustomDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
 
 CustomDocument.getInitialProps = async (ctx: DocumentContext) => {
-  const sheets = new ServerStyleSheets();
-  const originalRenderPage = ctx.renderPage;
+  const sheets = new ServerStyleSheets()
+  const originalRenderPage = ctx.renderPage
 
   ctx.renderPage = () =>
     originalRenderPage({
       enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
-    });
+    })
 
-  const initialProps = await Document.getInitialProps(ctx);
+  const initialProps = await Document.getInitialProps(ctx)
 
   return {
     ...initialProps,
-    styles: [
-      ...React.Children.toArray(initialProps.styles),
-      sheets.getStyleElement(),
-    ],
-  };
-};
+    styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()],
+  }
+}
 
-export default CustomDocument;
+export default CustomDocument

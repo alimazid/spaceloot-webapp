@@ -47,7 +47,7 @@ class WalletStore {
   }
 
   get isConnected() {
-    return !!this.address
+    return this.address !== ''
   }
 }
 

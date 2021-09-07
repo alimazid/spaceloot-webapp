@@ -6,7 +6,7 @@ import { walletStore, CURRENT_ADDRESS_KEY } from 'stores/walletStore'
 import { networkStore } from 'stores/networkStore'
 
 class WalletService {
-  extension: Extension
+  extension!: Extension
 
   constructor() {
     if (global.window) {
