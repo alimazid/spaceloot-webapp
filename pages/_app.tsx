@@ -5,9 +5,16 @@ import { StylesProvider, ThemeProvider as MuiThemeProvider } from '@material-ui/
 import { theme } from 'theme'
 import { ThemeProvider as EmotionThemeProvider } from '@emotion/react'
 import { Navbar } from 'views/common/Navbar'
+import { useEffect } from 'react'
 
 const App = ({ Component, pageProps }: AppProps) => {
-  // return <Component {...pageProps} />;
+  useEffect(() => {
+    const jssStyles = document.querySelector('#jss-server-side')
+    if (jssStyles) {
+      jssStyles.parentElement?.removeChild(jssStyles)
+    }
+  }, [])
+
   return (
     <>
       <Head>

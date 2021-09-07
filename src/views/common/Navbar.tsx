@@ -18,10 +18,11 @@ import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { ConnectButton } from './ConnectButton'
 import { Sidebar } from './Sidebar'
 
 const StyledAppBar = styled(AppBar)<{ theme?: Theme }>`
-  background: white;
+  background: #222;
   z-index: ${(props) => props.theme.zIndex.drawer + 1};
 `
 
@@ -51,10 +52,6 @@ export const Navbar = observer((props: Props) => {
 
   return (
     <>
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setSidebarOpen(false)}>
-        {children}
-      </Sidebar>
-
       <StyledAppBar position="fixed" elevation={4}>
         <Toolbar>
           <Box display="flex" alignItems="center" justifyContent="space-between" flex={1}>
@@ -68,24 +65,12 @@ export const Navbar = observer((props: Props) => {
               </Link>
             )}
             <Box>
-              <Button onClick={handleMenuClick} endIcon={<KeyboardArrowDownIcon />}>
-                {1}
-              </Button>
-              <Menu
-                anchorEl={anchorEl}
-                getContentAnchorEl={null}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={() => {}}>ออกจากระบบ</MenuItem>
-              </Menu>
+              <ConnectButton />
             </Box>
           </Box>
         </Toolbar>
       </StyledAppBar>
+      {children}
     </>
   )
 })
