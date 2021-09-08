@@ -18,7 +18,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
-        <title>Terra Loot</title>
+        <title>StarLoot!</title>
       </Head>
       <GlobalStyle />
       <StylesProvider injectFirst>

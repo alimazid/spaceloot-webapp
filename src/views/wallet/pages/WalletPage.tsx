@@ -7,7 +7,7 @@ export const WalletPage = observer(() => {
     <Box width="100%" minHeight="50vh" marginTop="64px">
       <Typography variant="h1" align="center">Your StarLoots!</Typography>
       <Typography align="center">0x12345</Typography>
-      <LootGallery></LootGallery>
+      <LootGallery />
     </Box>
   )
 })
