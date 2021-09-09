@@ -16,12 +16,14 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import MenuIcon from '@material-ui/icons/Menu'
 import { Routes } from 'constants/routes'
 import { observer } from 'mobx-react-lite'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { BitButton } from './BitButton'
 import { ConnectButton } from './ConnectButton'
 import { Sidebar } from './Sidebar'
+import { walletStore } from 'stores/walletStore'
 
 const StyledAppBar = styled(AppBar)<{ theme?: Theme }>`
   /* background: #222;
@@ -88,11 +90,17 @@ export const Navbar = observer((props: Props) => {
               </IconButton>
             ) : (
               <Link href="/" passHref>
-                <Box component="a" display="flex"></Box>
+                <Box component="a" display="flex">
+                  <Image src="/static/logo.png" width="150" height="40" />
+                </Box>
               </Link>
             )}
             <Box>
-              <button type="button" className="nes-btn is-secondary">My Loot!</button>
+            {walletStore.isConnected && (
+                <Link href="/gallery" passHref>
+                  <button type="button" className="nes-btn is-secondary">Your Star Loot!</button>
+                </Link>
+              )}
               <ConnectButton />
             </Box>
           </Box>
