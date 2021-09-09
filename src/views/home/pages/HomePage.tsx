@@ -1,25 +1,13 @@
-import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
-import { Box, Typography, TextField, Button, makeStyles } from '@material-ui/core'
+import { Box, Typography, TextField, Button } from '@material-ui/core'
 import { Loot } from 'views/loot/Loot'
 import { LootGallery } from 'views/loot/LootGallery'
-
-const useStyles = makeStyles(() => ({
-  background: {
-    backgroundImage: "url('static/bg2.gif')",
-    marginTop: '0px',
-    backgroundRepeat: 'repeat',
-    minHeight: '100vh',
-    width: '100%',
-  },
-}))
+import { BitStarBgContainer } from 'views/common/BitStarBgContainer'
 
 export const HomePage = observer(() => {
-  const classes = useStyles()
   return (
-  
-  <Box className={classes.background} width="100%" minHeight="50vh" paddingTop="64px">
-    {/* <div className="nes-container with-title is-centered">
+    <BitStarBgContainer width="100%" minHeight="50vh" paddingTop="64px">
+      {/* <div className="nes-container with-title is-centered">
       <p className="title"></p>
       <p>Good morning. Thou hast had a good night's sleep, I hope.</p>
     </div> */}
@@ -29,7 +17,7 @@ export const HomePage = observer(() => {
         </Typography>
       </Box>
       <Box marginTop="50px" display="flex" justifyContent="center">
-        <Loot/>
+        <Loot />
       </Box>
       <Box paddingTop="50px" display="flex" justifyContent="center" alignItems="center">
         <Box marginRight="20px">
@@ -38,15 +26,19 @@ export const HomePage = observer(() => {
           </div>
         </Box>
         <Box marginRight="20px">
-          <button type="button" className="nes-btn is-success">Claim!</button>
+          <button type="button" className="nes-btn is-success">
+            Claim!
+          </button>
         </Box>
-        <button type="button" className="nes-btn is-success">Random Loot!</button>
+        <button type="button" className="nes-btn is-success">
+          Random Loot!
+        </button>
       </Box>
 
       {/* <Typography variant="h2" align="center">Recently Claimed</Typography>
       <Box>
         <LootGallery />
       </Box> */}
-    </Box>
+    </BitStarBgContainer>
   )
 })

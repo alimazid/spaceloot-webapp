@@ -1,26 +1,13 @@
-import styled from '@emotion/styled'
 import { observer } from 'mobx-react-lite'
-import { Box, Typography, TextField, Button, makeStyles } from '@material-ui/core'
+import { Box, Typography, TextField, Button } from '@material-ui/core'
 import { Loot } from 'views/loot/Loot'
 import { LootGallery } from 'views/loot/LootGallery'
-
-const useStyles = makeStyles(() => ({
-  background: {
-    backgroundImage: "url('static/bg2.gif')",
-    marginTop: '0px',
-    backgroundRepeat: 'repeat',
-    display: 'flex',
-    flexDirection: 'column',
-    flexGrow: 1,
-    width: '100%',
-  },
-}))
+import { BitStarBgContainer } from 'views/common/BitStarBgContainer'
 
 export const Gallery = observer(() => {
-  const classes = useStyles()
   const lootNumber = 0
   return (
-    <Box className={classes.background} paddingTop="64px">
+    <BitStarBgContainer paddingTop="64px">
       {/* <div className="nes-container with-title is-centered">
       <p className="title"></p>
       <p>Good morning. Thou hast had a good night's sleep, I hope.</p>
@@ -33,6 +20,6 @@ export const Gallery = observer(() => {
       <Box marginTop="25px">
         <LootGallery />
       </Box>
-    </Box>
+    </BitStarBgContainer>
   )
 })
