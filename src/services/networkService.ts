@@ -1,8 +1,9 @@
 import { networkStore } from 'stores/networkStore'
 import { Asset, NativeToken } from 'interfaces/asset.interface'
-import { gas, InkMethod } from 'constants/gas'
+import { gas, StarLootMethods } from 'constants/gas'
 import { walletService } from './walletService'
 import { walletStore } from 'stores/walletStore'
+import BigNumber from 'bignumber.js'
 
 class NetworkService {
   init = async () => {
@@ -33,28 +34,26 @@ class NetworkService {
     networkStore.updateTaxCap('uusd', taxCap.amount.toNumber())
   }
 
-  // calculateTxFee = (method: InkMethod, asset?: Asset): big => {
-  //   const defaultGasFee = big(gas[networkStore.name].defaultGasFee || 0)
-  //   const gasFee = big(
-  //     gas[networkStore.name].methods[method].gasFee || defaultGasFee,
-  //   )
-  //   const tax = asset ? this.calculateTxTax(asset) : big(0)
-  //   return gasFee.plus(tax)
-  // }
+  calculateTxFee = (method: StarLootMethods, asset?: Asset): BigNumber => {
+    const defaultGasFee = new BigNumber(gas[networkStore.name].defaultGasFee || 0)
+    const gasFee = new BigNumber(gas[networkStore.name].methods[method].gasFee || defaultGasFee)
+    const tax = asset ? this.calculateTxTax(asset) : new BigNumber(0)
+    return gasFee.plus(tax)
+  }
 
-  // calculateTxTax = (asset?: Asset) => {
-  //   if ((asset.info as NativeToken).native_token) {
-  //     const taxCap = big(
-  //       networkStore.taxCaps[(asset.info as NativeToken).native_token.denom],
-  //     )
-  //     const tax = big(networkStore.taxRate).times(asset.amount).round(0, 0)
-  //     if (tax.gte(taxCap)) {
-  //       return taxCap
-  //     }
-  //     return tax
-  //   }
-  //   return big(0)
-  // }
+  calculateTxTax = (asset?: Asset) => {
+    if (asset && (asset.info as NativeToken).native_token) {
+      const taxCap = new BigNumber(
+        networkStore.taxCaps[(asset.info as NativeToken).native_token.denom]
+      )
+      const tax = new BigNumber(networkStore.taxRate).times(asset.amount).integerValue() //round (0,0) ?
+      if (tax.gte(taxCap)) {
+        return taxCap
+      }
+      return tax
+    }
+    return new BigNumber(0)
+  }
 
   updateNetwork = async () => {
     if (walletService.extension.isAvailable) {
