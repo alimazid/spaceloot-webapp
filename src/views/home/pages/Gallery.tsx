@@ -9,7 +9,9 @@ const useStyles = makeStyles(() => ({
     backgroundImage: "url('static/bg2.gif')",
     marginTop: '0px',
     backgroundRepeat: 'repeat',
-    minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    flexGrow: 1,
     width: '100%',
   },
 }))
@@ -18,9 +20,8 @@ export const Gallery = observer(() => {
   const classes = useStyles()
   const lootNumber = 0
   return (
-  
-  <Box className={classes.background} width="100%" minHeight="50vh" paddingTop="64px">
-    {/* <div className="nes-container with-title is-centered">
+    <Box className={classes.background} paddingTop="64px">
+      {/* <div className="nes-container with-title is-centered">
       <p className="title"></p>
       <p>Good morning. Thou hast had a good night's sleep, I hope.</p>
     </div> */}
