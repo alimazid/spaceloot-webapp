@@ -6,7 +6,6 @@ import { theme } from 'theme'
 import { ThemeProvider as EmotionThemeProvider } from '@emotion/react'
 import { Navbar } from 'views/common/Navbar'
 import { useEffect } from 'react'
-import "nes.css/css/nes.min.css";
 
 const App = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
@@ -20,6 +19,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     <>
       <Head>
         <title>StarLoot!</title>
+        <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
       </Head>
       <GlobalStyle />
       <StylesProvider injectFirst>
