@@ -21,7 +21,7 @@ export const HomePage = observer(() => {
       setLoot({ id: debouncedTokenId.toNumber() } as any)
       return // to be removed
       const response = await spaceLootService.queryLootset(debouncedTokenId)
-      setLootset(response.lootset)
+      setLoot(response.lootset)
     }
     sideEffect()
   }, [debouncedTokenId])
