@@ -102,7 +102,7 @@ export const Navbar = observer((props: Props) => {
               </Link>
             )}
             <Box>
-              {walletStore.isConnected && (
+              {walletStore.isConnected && router.pathname !== '/gallery' && (
                 <Link href="/gallery" passHref>
                   <button
                     type="button"
@@ -110,6 +110,17 @@ export const Navbar = observer((props: Props) => {
                     style={{ marginRight: 16 }}
                   >
                     Your SpaceLoots!
+                  </button>
+                </Link>
+              )}
+              {walletStore.isConnected && router.pathname !== '/' && (
+                <Link href="/" passHref>
+                  <button
+                    type="button"
+                    className="nes-btn is-secondary"
+                    style={{ marginRight: 16 }}
+                  >
+                    Home~
                   </button>
                 </Link>
               )}

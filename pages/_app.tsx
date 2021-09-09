@@ -7,6 +7,7 @@ import { ThemeProvider as EmotionThemeProvider } from '@emotion/react'
 import { Navbar } from 'views/common/Navbar'
 import { useEffect } from 'react'
 import BigNumber from 'bignumber.js'
+import { useSetup } from 'hooks/useSetup'
 BigNumber.config({ EXPONENTIAL_AT: 78 })
 
 const App = ({ Component, pageProps }: AppProps) => {
@@ -16,6 +17,8 @@ const App = ({ Component, pageProps }: AppProps) => {
       jssStyles.parentElement?.removeChild(jssStyles)
     }
   }, [])
+
+  useSetup()
 
   return (
     <>

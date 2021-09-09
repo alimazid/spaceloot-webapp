@@ -14,7 +14,7 @@ const RectSkeleton = (props: any) => {
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
         marginTop: 4,
         borderRadius: 8,
-        display: props.inline && 'inline-block',
+        display: props.inline === 'true' && 'inline-block',
       }}
       {...props}
     />
@@ -26,7 +26,7 @@ export const LootBox = observer(({ loot, ...props }: Props & BoxProps) => {
     return (
       <Box className="nes-container is-dark  with-title" {...props} width="500px">
         <p className="title">
-          Space Loot <RectSkeleton width={150} height={16} inline />
+          Space Loot <RectSkeleton width={150} height={16} inline="true" />
         </p>
         <div className="lists">
           <ul className="nes-list is-disc">

@@ -13,7 +13,7 @@ export const useSetup = () => {
     const setup = async () => {
       walletService.checkExtensionInstalled()
       networkService.init()
-      console.log('isExtensionInstalled', walletStore.isExtensionInstalled.toString())
+
       if (!walletStore.isExtensionInstalled) {
         setReady(true)
         return
