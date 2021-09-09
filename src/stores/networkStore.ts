@@ -1,4 +1,5 @@
 import { LCDClient } from '@terra-money/terra.js'
+import { isBrowser } from 'constants/isBrowser'
 import { defaultNetwork } from 'constants/networks'
 import { makeAutoObservable } from 'mobx'
 
@@ -20,7 +21,7 @@ class NetworkStore {
     this.name = name
     this.lcd = lcd
     this.chainID = chainID
-    if (global.window) {
+    if (isBrowser) {
       this.terra = new LCDClient({
         URL: lcd,
         chainID: chainID,

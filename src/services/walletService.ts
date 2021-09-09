@@ -4,18 +4,19 @@ import { NativeToken, Token } from 'interfaces/asset.interface'
 import { gas } from 'constants/gas'
 import { walletStore, CURRENT_ADDRESS_KEY } from 'stores/walletStore'
 import { networkStore } from 'stores/networkStore'
+import { isBrowser } from 'constants/isBrowser'
 
 class WalletService {
   extension!: Extension
 
   constructor() {
-    if (global.window) {
+    if (isBrowser) {
       this.extension = new Extension()
     }
   }
 
   init = async () => {
-    if (global.window) {
+    if (isBrowser) {
       const storedAddress = this.getStoredAddress()
       if (storedAddress) await this.connect()
     }

@@ -1,3 +1,4 @@
+import { isBrowser } from 'constants/isBrowser'
 import { Coin, Asset, NativeToken } from 'interfaces/asset.interface'
 import { makeAutoObservable } from 'mobx'
 
@@ -21,7 +22,7 @@ class WalletStore {
   }
 
   setAddress = (address: string, writeStorage = true) => {
-    if (global.window && writeStorage) {
+    if (isBrowser && writeStorage) {
       localStorage.setItem(CURRENT_ADDRESS_KEY, address)
     }
     this.address = address
