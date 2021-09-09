@@ -14,7 +14,7 @@ export const Gallery = observer(() => {
     </div> */}
       <Box marginTop="50px" display="flex" justifyContent="center">
         <Typography variant="h3" className="nes-text is-primary">
-          Look at those shiny loot !
+          Look at those shiny loots !
         </Typography>
       </Box>
       <Box marginTop="25px">

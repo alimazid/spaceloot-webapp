@@ -97,7 +97,7 @@ export const Navbar = observer((props: Props) => {
             ) : (
               <Link href="/" passHref>
                 <Box component="a" display="flex">
-                  <Image src="/static/logo.png" width="260" height="50" />
+                  <Typography>SpaceLoot</Typography>
                 </Box>
               </Link>
             )}
@@ -109,7 +109,7 @@ export const Navbar = observer((props: Props) => {
                     className="nes-btn is-secondary"
                     style={{ marginRight: 16 }}
                   >
-                    Your Star Loot!
+                    Your SpaceLoots!
                   </button>
                 </Link>
               )}
