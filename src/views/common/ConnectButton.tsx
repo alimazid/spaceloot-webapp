@@ -19,8 +19,6 @@ export const ConnectButton = observer(() => {
   }
 
   return (
-    <StyledButton variant="contained" onClick={handler}>
-      {walletStore.isConnected ? maskWalletAddress(walletStore.address) : 'Connect'}
-    </StyledButton>
+    <button onClick={handler} type="button" className="nes-btn is-primary">{walletStore.isConnected ? maskWalletAddress(walletStore.address) : 'Connect'}</button>
   )
 })

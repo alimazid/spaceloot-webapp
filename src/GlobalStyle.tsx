@@ -3,6 +3,7 @@ import { Global, css } from "@emotion/react";
 const styles = css`
   body {
     padding: 0;
+    margin: 0;
   }
   a {
     color: inherit;

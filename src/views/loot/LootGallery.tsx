@@ -5,9 +5,15 @@ import { Loot } from 'views/loot/Loot'
 export const LootGallery = observer(() => {
   return (
     <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
-      <Loot></Loot>
-      <Loot></Loot>
-      <Loot></Loot>
+      <Box marginRight="40px">
+        <Loot></Loot>
+      </Box>
+      <Box marginRight="40px">
+        <Loot></Loot>
+      </Box>
+      <Box marginRight="40px">
+        <Loot></Loot>
+      </Box>
     </Box>
   )
 })

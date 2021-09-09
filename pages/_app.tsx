@@ -6,6 +6,7 @@ import { theme } from 'theme'
 import { ThemeProvider as EmotionThemeProvider } from '@emotion/react'
 import { Navbar } from 'views/common/Navbar'
 import { useEffect } from 'react'
+import "nes.css/css/nes.min.css";
 
 const App = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {

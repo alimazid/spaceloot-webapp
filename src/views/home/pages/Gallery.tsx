@@ -14,8 +14,9 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export const HomePage = observer(() => {
+export const Gallery = observer(() => {
   const classes = useStyles()
+  const lootNumber = 0
   return (
   
   <Box className={classes.background} width="100%" minHeight="50vh" paddingTop="64px">
@@ -25,28 +26,12 @@ export const HomePage = observer(() => {
     </div> */}
       <Box marginTop="50px" display="flex" justifyContent="center">
         <Typography variant="h3" className="nes-text is-primary">
-          It's Dangerous to Go Alone! Take This Starship With You
+          Look at those shiny loot !
         </Typography>
       </Box>
-      <Box marginTop="50px" display="flex" justifyContent="center">
-        <Loot/>
-      </Box>
-      <Box paddingTop="50px" display="flex" justifyContent="center" alignItems="center">
-        <Box marginRight="20px">
-          <div className="nes-field">
-            <input type="text" id="name_field" className="nes-input" />
-          </div>
-        </Box>
-        <Box marginRight="20px">
-          <button type="button" className="nes-btn is-success">Claim!</button>
-        </Box>
-        <button type="button" className="nes-btn is-success">Random Loot!</button>
-      </Box>
-
-      {/* <Typography variant="h2" align="center">Recently Claimed</Typography>
-      <Box>
+      <Box marginTop="25px">
         <LootGallery />
-      </Box> */}
+      </Box>
     </Box>
   )
 })

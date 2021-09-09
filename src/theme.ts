@@ -11,7 +11,7 @@ export const theme = createTheme({
   },
   typography: {
     htmlFontSize: 16,
-    fontFamily: `"Roboto", sans-serif`,
+    fontFamily: `"Press Start 2P", sans-serif`,
     allVariants: { letterSpacing: 0.1 },
     h1: { fontSize: 32, fontWeight: "normal" },
     h2: { fontSize: 26, fontWeight: "normal" },
