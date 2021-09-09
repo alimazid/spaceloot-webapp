@@ -1,11 +1,11 @@
-export const addresses: Record<string, { starLoot: string }> = {
+export const addresses: Record<string, { spaceLoot: string }> = {
   localterra: {
-    starLoot: '',
+    spaceLoot: '',
   },
   testnet: {
-    starLoot: '',
+    spaceLoot: '',
   },
   mainnet: {
-    starLoot: '',
+    spaceLoot: '',
   },
 }

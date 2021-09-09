@@ -1,10 +1,10 @@
-export type StarLootMethods = 'claim'
+export type SpaceLootMethods = 'claim'
 
 export const gas: {
   [network: string]: {
     gasAdjustment: number
     defaultGasFee: number
-    methods: { [methodName in StarLootMethods]: { gasLimit: number; gasFee: number } }
+    methods: { [methodName in SpaceLootMethods]: { gasLimit: number; gasFee: number } }
   }
 } = {
   mainnet: {

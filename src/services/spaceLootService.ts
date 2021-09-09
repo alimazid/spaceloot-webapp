@@ -8,17 +8,17 @@ import { networkService } from './networkService'
 import { walletService } from './walletService'
 import BigNumber from 'bignumber.js'
 
-class StarLootService {
+class SpaceLootService {
   claim = async (lootId: number) => {
     if (!walletStore.isConnected) return
 
     const sender = walletStore.address
-    const { starLoot } = addresses[networkStore.name]
+    const { spaceLoot } = addresses[networkStore.name]
 
     const response = await walletService.post(
       {
         msgs: [
-          new MsgExecuteContract(sender, starLoot, {
+          new MsgExecuteContract(sender, spaceLoot, {
             claim: {
               token_id: lootId,
             },
@@ -34,8 +34,8 @@ class StarLootService {
   }
 
   queryLootset = async (tokenId: BigNumber) => {
-    const { starLoot } = addresses[networkStore.name]
-    const response = await networkStore.terra.wasm.contractQuery(starLoot, {
+    const { spaceLoot } = addresses[networkStore.name]
+    const response = await networkStore.terra.wasm.contractQuery(spaceLoot, {
       lootset: {
         token_id: tokenId.toString(),
       },
@@ -48,4 +48,4 @@ class StarLootService {
   }
 }
 
-export const starLootService = new StarLootService()
+export const spaceLoot = new SpaceLootService()
