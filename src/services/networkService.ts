@@ -1,6 +1,6 @@
 import { networkStore } from 'stores/networkStore'
 import { Asset, NativeToken } from 'interfaces/asset.interface'
-import { gas, StarLootMethods } from 'constants/gas'
+import { gas, SpaceLootMethods } from 'constants/gas'
 import { walletService } from './walletService'
 import { walletStore } from 'stores/walletStore'
 import BigNumber from 'bignumber.js'
@@ -34,7 +34,7 @@ class NetworkService {
     networkStore.updateTaxCap('uusd', taxCap.amount.toNumber())
   }
 
-  calculateTxFee = (method: StarLootMethods, asset?: Asset): BigNumber => {
+  calculateTxFee = (method: SpaceLootMethods, asset?: Asset): BigNumber => {
     const defaultGasFee = new BigNumber(gas[networkStore.name].defaultGasFee || 0)
     const gasFee = new BigNumber(gas[networkStore.name].methods[method].gasFee || defaultGasFee)
     const tax = asset ? this.calculateTxTax(asset) : new BigNumber(0)
