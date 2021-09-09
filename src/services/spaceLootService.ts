@@ -40,6 +40,7 @@ class SpaceLootService {
         token_id: tokenId.toString(),
       },
     })
+    return response
   }
 
   queryLatestBlock = async () => {
