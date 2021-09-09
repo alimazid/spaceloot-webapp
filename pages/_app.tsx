@@ -18,7 +18,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <Head>
-        <title>StarLoot!</title>
+        <title>SpaceLoot!</title>
         <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
       </Head>
       <GlobalStyle />
