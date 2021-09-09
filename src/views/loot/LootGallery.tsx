@@ -4,15 +4,21 @@ import { LootBox } from 'views/loot/LootBox'
 
 export const LootGallery = observer(() => {
   return (
-    <Box display="flex" flexDirection="row" flexWrap="wrap" justifyContent="center">
-      <Box marginRight="40px">
-        <LootBox></LootBox>
+    <Box
+      display="flex"
+      flexDirection="row"
+      flexWrap="wrap"
+      justifyContent="space-between"
+      maxWidth="1100px"
+    >
+      <Box mt={2}>
+        <LootBox />
       </Box>
-      <Box marginRight="40px">
-        <LootBox></LootBox>
+      <Box mt={2}>
+        <LootBox />
       </Box>
-      <Box marginRight="40px">
-        <LootBox></LootBox>
+      <Box mt={2}>
+        <LootBox />
       </Box>
     </Box>
   )

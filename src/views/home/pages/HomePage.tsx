@@ -73,7 +73,7 @@ export const HomePage = observer(() => {
         <Box marginRight="20px">
           <button
             type="button"
-            className="nes-btn is-success is-lo"
+            className={`nes-btn is-success ${isClaiming && 'is-disabled'}`}
             disabled={isClaiming}
             onClick={handleClaim}
           >

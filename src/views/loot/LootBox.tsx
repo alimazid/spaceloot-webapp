@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import { Box } from '@material-ui/core'
+import { Box, BoxProps } from '@material-ui/core'
 import { Loot } from 'interfaces/loot.interface'
 import { Skeleton } from '@material-ui/lab'
 type Props = {
@@ -21,12 +21,12 @@ const RectSkeleton = (props: any) => {
   )
 }
 
-export const LootBox = observer(({ loot }: Props) => {
+export const LootBox = observer(({ loot, ...props }: Props & BoxProps) => {
   if (!loot) {
     return (
-      <Box width="500px" className="nes-container is-dark  with-title">
+      <Box className="nes-container is-dark  with-title" {...props} width="500px">
         <p className="title">
-          Space Loot <RectSkeleton width={150} height={24} inline />
+          Space Loot <RectSkeleton width={150} height={16} inline />
         </p>
         <div className="lists">
           <ul className="nes-list is-disc">
@@ -44,11 +44,11 @@ export const LootBox = observer(({ loot }: Props) => {
   }
 
   return (
-    <Box width="500px" className="nes-container is-dark  with-title">
+    <Box className="nes-container is-dark  with-title" {...props} width="500px">
       <p className="title">Space Loot #{loot.id || 1}</p>
       <div className="lists">
         <ul className="nes-list is-disc">
-          <li>Part#1 : </li>
+          <li>Part#1 :</li>
           <li>Part#2 :</li>
           <li>Part#3 :</li>
           <li>Part#4 :</li>
