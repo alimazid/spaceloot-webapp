@@ -68,7 +68,13 @@ export const Navbar = observer((props: Props) => {
 
   const router = useRouter()
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+
+  useEffect(() => {
+    if (!walletStore.isConnected && Routes.CONNECTED_ONLY.includes(router.pathname)) {
+      router.push('/')
+    }
+  }, [walletStore.isConnected, router.pathname])
 
   const handleMenuClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
@@ -78,29 +84,31 @@ export const Navbar = observer((props: Props) => {
     setAnchorEl(null)
   }
 
-  const sidebarHidden = Routes.SIDEBAR_HIDDEN.includes(router.pathname)
-
   return (
     <RootBox>
       <StyledAppBar position="fixed" elevation={4}>
         <Toolbar>
-          <Typography variant="h1">Star Loot !</Typography>
+          {/* <Typography variant="h1">Star Loot !</Typography> */}
           <Box display="flex" alignItems="center" justifyContent="space-between" flex={1}>
-            {isMobile && !sidebarHidden ? (
+            {isMobile ? (
               <IconButton edge="start" onClick={() => setSidebarOpen(true)}>
                 <MenuIcon fontSize="large" />
               </IconButton>
             ) : (
               <Link href="/" passHref>
                 <Box component="a" display="flex">
-                  <Image src="/static/logo.png" width="150" height="40" />
+                  <Image src="/static/logo.png" width="260" height="50" />
                 </Box>
               </Link>
             )}
             <Box>
               {walletStore.isConnected && (
                 <Link href="/gallery" passHref>
-                  <button type="button" className="nes-btn is-secondary">
+                  <button
+                    type="button"
+                    className="nes-btn is-secondary"
+                    style={{ marginRight: 16 }}
+                  >
                     Your Star Loot!
                   </button>
                 </Link>

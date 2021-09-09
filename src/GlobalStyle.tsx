@@ -1,4 +1,4 @@
-import { Global, css } from "@emotion/react";
+import { Global, css } from '@emotion/react'
 
 const styles = css`
   body {
@@ -8,7 +8,6 @@ const styles = css`
   a {
     color: inherit;
     text-decoration: none;
-    cursor: pointer;
   }
   *,
   *:before,
@@ -34,6 +33,6 @@ const styles = css`
       margin: auto 0.5rem;
     }
   }
-`;
+`
 
-export const GlobalStyle = () => <Global styles={styles} />;
+export const GlobalStyle = () => <Global styles={styles} />
