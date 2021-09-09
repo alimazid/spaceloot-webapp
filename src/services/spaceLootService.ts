@@ -33,7 +33,7 @@ class SpaceLootService {
     return response
   }
 
-  queryLootset = async (tokenId: BigNumber) => {
+  queryLootset = async (tokenId: BigNumber): Promise<any> => {
     const { spaceLoot } = addresses[networkStore.name]
     const response = await networkStore.terra.wasm.contractQuery(spaceLoot, {
       lootset: {
@@ -49,4 +49,4 @@ class SpaceLootService {
   }
 }
 
-export const spaceLoot = new SpaceLootService()
+export const spaceLootService = new SpaceLootService()

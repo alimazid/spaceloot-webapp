@@ -1,16 +1,36 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { Box, Typography, TextField, Button } from '@material-ui/core'
-import { Loot } from 'views/loot/Loot'
-import { LootGallery } from 'views/loot/LootGallery'
+import { Box, Typography } from '@material-ui/core'
+import { LootBox } from 'views/loot/LootBox'
 import { BitStarBgContainer } from 'views/common/BitStarBgContainer'
 import { randomBytes } from 'crypto'
 import BigNumber from 'bignumber.js'
+import styled from '@emotion/styled'
+import { spaceLootService } from 'services/spaceLootService'
+import { useDebounce } from 'hooks/useDebounce'
+import { Loot } from 'interfaces/loot.interface'
 
 export const HomePage = observer(() => {
+  const [isClaiming, setIsClaiming] = useState(false)
   const [tokenId, setTokenId] = useState<BigNumber>(new BigNumber('NaN'))
+  const [loot, setLoot] = useState<Loot>()
+  const debouncedTokenId = useDebounce<BigNumber>(tokenId, 200)
 
-  const fetchLootset = async () => {}
+  useEffect(() => {
+    const sideEffect = async () => {
+      setLoot({ id: debouncedTokenId.toNumber() } as any)
+      return // to be removed
+      const response = await spaceLootService.queryLootset(debouncedTokenId)
+      setLootset(response.lootset)
+    }
+    sideEffect()
+  }, [debouncedTokenId])
+
+  const handleClaim = async () => {
+    setIsClaiming(true)
+    await new Promise((resolve) => setTimeout(resolve, 5000))
+    setIsClaiming(false)
+  }
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== '') {
@@ -35,7 +55,7 @@ export const HomePage = observer(() => {
         </Typography>
       </Box>
       <Box marginTop="50px" display="flex" justifyContent="center">
-        <Loot tokenId={tokenId} />
+        <LootBox loot={loot} />
       </Box>
       <Box paddingTop="50px" display="flex" justifyContent="center" alignItems="center">
         <Box marginRight="20px">
@@ -51,8 +71,13 @@ export const HomePage = observer(() => {
           </div>
         </Box>
         <Box marginRight="20px">
-          <button type="button" className="nes-btn is-success">
-            Claim!
+          <button
+            type="button"
+            className="nes-btn is-success is-lo"
+            disabled={isClaiming}
+            onClick={handleClaim}
+          >
+            {isClaiming ? 'Claiming...' : 'Claim!'}
           </button>
         </Box>
         <button type="button" className="nes-btn is-success" onClick={randomUint256}>
