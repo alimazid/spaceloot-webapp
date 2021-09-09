@@ -51,9 +51,17 @@ type Props = {
   children: React.ReactNode
 }
 
+const RootBox = styled(Box)<{ appBarHeight?: string }>`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+`
+
 export const Navbar = observer((props: Props) => {
   const { children } = props
-  const appBarRef = useRef<HTMLDivElement>(null)
 
   const [isSidebarOpen, setSidebarOpen] = useState(false)
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
@@ -72,17 +80,9 @@ export const Navbar = observer((props: Props) => {
 
   const sidebarHidden = Routes.SIDEBAR_HIDDEN.includes(router.pathname)
 
-  useEffect(() => {
-    console.log(appBarRef.current?.clientHeight)
-  }, [appBarRef.current])
-
-  const appBarHeight = useMemo(() => {
-    return appBarRef.current?.clientHeight ?? 0
-  }, [appBarRef.current?.clientHeight])
-
   return (
-    <>
-      <StyledAppBar position="fixed" elevation={4} ref={appBarRef}>
+    <RootBox>
+      <StyledAppBar position="fixed" elevation={4}>
         <Toolbar>
           <Typography variant="h1">Star Loot !</Typography>
           <Box display="flex" alignItems="center" justifyContent="space-between" flex={1}>
@@ -110,14 +110,7 @@ export const Navbar = observer((props: Props) => {
           </Box>
         </Toolbar>
       </StyledAppBar>
-      <Box
-        display="flex"
-        flexDirection="column"
-        width="100%"
-        minHeight={`calc(100vh - ${appBarHeight}px)`}
-      >
-        {children}
-      </Box>
-    </>
+      {children}
+    </RootBox>
   )
 })
