@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import { Box, Typography, TextField, Button } from '@material-ui/core'
-import { Loot } from 'views/loot/LootBox'
+import { LootBox } from 'views/loot/LootBox'
 import { LootGallery } from 'views/loot/LootGallery'
 import { BitStarBgContainer } from 'views/common/BitStarBgContainer'
 
