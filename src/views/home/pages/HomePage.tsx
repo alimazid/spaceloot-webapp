@@ -47,7 +47,7 @@ export const HomePage = observer(() => {
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== '') {
-      setTokenId(new BigNumber(e.target.value))
+      setTokenId(BigNumber.min(new BigNumber(e.target.value), 8000))
     }
   }
 
