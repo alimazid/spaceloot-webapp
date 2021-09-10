@@ -1,7 +1,10 @@
 import { observer } from 'mobx-react-lite'
 import { Box, BoxProps } from '@material-ui/core'
 import { Loot } from 'interfaces/loot.interface'
+import { networks } from 'constants/networks'
+import { networkStore } from 'stores/networkStore'
 import { Skeleton } from '@material-ui/lab'
+import Link from 'next/link'
 type Props = {
   loot?: Loot
 }
@@ -14,6 +17,13 @@ const LootProperty = (props: any) => {
     }}>
       {props.children}
     </li>
+  )
+}
+
+const LootOwner = (props: any) => {
+  const url = networks[networkStore.name].finder + '/address/' + props.owner
+  return (
+    <p>Owner: {props.owner != '' ? <Link href={url} passHref>{props.owner}</Link> : '-'}</p>
   )
 }
 
@@ -68,6 +78,7 @@ export const LootBox = observer(({ loot, ...props }: Props & BoxProps) => {
           <LootProperty><span className="nes-text is-primary">🪨 Material:</span> {loot.material}</LootProperty>
           <LootProperty><span className="nes-text is-primary">🎁 Extra:</span> {loot.extra}</LootProperty>
         </ul>
+        <LootOwner owner={loot.owner} />
       </div>
     </Box>
   )
