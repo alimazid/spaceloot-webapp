@@ -6,6 +6,17 @@ type Props = {
   loot?: Loot
 }
 
+const LootProperty = (props: any) => {
+  return (
+    <li style={{
+      paddingLeft: '1.5em',
+      textIndent: '-2em',
+    }}>
+      {props.children}
+    </li>
+  )
+}
+
 const RectSkeleton = (props: any) => {
   return (
     <Skeleton
@@ -24,7 +35,7 @@ const RectSkeleton = (props: any) => {
 export const LootBox = observer(({ loot, ...props }: Props & BoxProps) => {
   if (!loot) {
     return (
-      <Box className="nes-container is-dark  with-title" {...props} width="500px">
+      <Box className="nes-container is-dark with-title" {...props}>
         <p className="title">
           Space Loot <RectSkeleton width={150} height={16} inline="true" />
         </p>
@@ -44,18 +55,18 @@ export const LootBox = observer(({ loot, ...props }: Props & BoxProps) => {
   }
 
   return (
-    <Box className="nes-container is-dark  with-title" {...props} width="500px">
-      <p className="title">Space Loot #{loot.id || 1}</p>
+    <Box className="nes-container is-dark with-title" {...props}>
+      <p className="title">Space Loot #{loot.id || '?'}</p>
       <div className="lists">
         <ul className="nes-list is-disc">
-          <li>🚢 Vessel Type : {loot.vessel_type}</li>
-          <li>🎖️ Class : {loot.class}</li>
-          <li>🔫 Weapon : {loot.weapon}</li>
-          <li>💣 Secondary Weapon : {loot.secondary_weapon}</li>
-          <li>🛡️ Shield : {loot.shield}</li>
-          <li>🚀 Propulsion : {loot.propulsion}</li>
-          <li>🪨 Material : {loot.material}</li>
-          <li>🎁 Extra : {loot.extra}</li>
+          <LootProperty><span className="nes-text is-primary">🚢 Vessel Type:</span> {loot.vessel_type}</LootProperty>
+          <LootProperty><span className="nes-text is-primary">🎖️ Class:</span> {loot.class}</LootProperty>
+          <LootProperty><span className="nes-text is-primary">🔫 Weapon:</span> {loot.weapon}</LootProperty>
+          <LootProperty><span className="nes-text is-primary">💣 Secondary Weapon:</span> {loot.secondary_weapon}</LootProperty>
+          <LootProperty><span className="nes-text is-primary">🛡️ Shield:</span> {loot.shield}</LootProperty>
+          <LootProperty><span className="nes-text is-primary">🚀 Propulsion:</span> {loot.propulsion}</LootProperty>
+          <LootProperty><span className="nes-text is-primary">🪨 Material:</span> {loot.material}</LootProperty>
+          <LootProperty><span className="nes-text is-primary">🎁 Extra:</span> {loot.extra}</LootProperty>
         </ul>
       </div>
     </Box>

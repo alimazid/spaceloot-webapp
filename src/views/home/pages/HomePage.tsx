@@ -10,15 +10,17 @@ import { spaceLootService } from 'services/spaceLootService'
 import { useDebounce } from 'hooks/useDebounce'
 import { Loot } from 'interfaces/loot.interface'
 
+const maxTokenId = 8000
+
 export const HomePage = observer(() => {
   const [isClaiming, setIsClaiming] = useState(false)
-  const [tokenId, setTokenId] = useState<BigNumber>(new BigNumber('1'))
+  const [tokenId, setTokenId] = useState<BigNumber>(new BigNumber(Math.floor(Math.random() * maxTokenId)))
   const [loot, setLoot] = useState<Loot>()
   const debouncedTokenId = useDebounce<BigNumber>(tokenId, 200)
 
   useEffect(() => {
     const sideEffect = async () => {
-      setLoot({ id: debouncedTokenId.toNumber() } as any)
+      setLoot(null)
       const response = await spaceLootService.queryLootset(debouncedTokenId)
       setLoot(response)
     }
@@ -37,9 +39,9 @@ export const HomePage = observer(() => {
     }
   }
 
-  const randomUint256 = () => {
-    const hex = randomBytes(4).toString('hex')
-    setTokenId(new BigNumber('0x' + hex))
+  const randomLoot = () => {
+    const tokenId = new BigNumber(Math.floor(Math.random() * maxTokenId))
+    setTokenId(tokenId)
   }
 
   return (
@@ -79,7 +81,7 @@ export const HomePage = observer(() => {
             {isClaiming ? 'Claiming...' : 'Claim!'}
           </button>
         </Box>
-        <button type="button" className="nes-btn is-success" onClick={randomUint256}>
+        <button type="button" className="nes-btn is-success" onClick={randomLoot}>
           Random Loot!
         </button>
       </Box>
