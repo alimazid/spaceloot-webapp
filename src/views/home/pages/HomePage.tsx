@@ -14,13 +14,15 @@ const maxTokenId = 8000
 
 export const HomePage = observer(() => {
   const [isClaiming, setIsClaiming] = useState(false)
-  const [tokenId, setTokenId] = useState<BigNumber>(new BigNumber(Math.floor(Math.random() * maxTokenId)))
+  const [tokenId, setTokenId] = useState<BigNumber>(
+    new BigNumber(Math.floor(Math.random() * maxTokenId))
+  )
   const [loot, setLoot] = useState<Loot>()
   const debouncedTokenId = useDebounce<BigNumber>(tokenId, 200)
 
   useEffect(() => {
     const sideEffect = async () => {
-      setLoot(null)
+      setLoot(undefined)
       const response = await spaceLootService.queryLootset(debouncedTokenId)
       setLoot(response)
     }
@@ -29,7 +31,7 @@ export const HomePage = observer(() => {
 
   const handleClaim = async () => {
     setIsClaiming(true)
-    await new Promise((resolve) => setTimeout(resolve, 5000))
+    await spaceLootService.claim(tokenId.toString())
     setIsClaiming(false)
   }
 
@@ -71,16 +73,18 @@ export const HomePage = observer(() => {
             />
           </div>
         </Box>
-        <Box marginRight="20px">
-          <button
-            type="button"
-            className={`nes-btn is-success ${isClaiming && 'is-disabled'}`}
-            disabled={isClaiming}
-            onClick={handleClaim}
-          >
-            {isClaiming ? 'Claiming...' : 'Claim!'}
-          </button>
-        </Box>
+        {loot && !loot.is_claimed && (
+          <Box marginRight="20px">
+            <button
+              type="button"
+              className={`nes-btn is-success ${isClaiming && 'is-disabled'}`}
+              disabled={isClaiming}
+              onClick={handleClaim}
+            >
+              {isClaiming ? 'Claiming...' : 'Claim!'}
+            </button>
+          </Box>
+        )}
         <button type="button" className="nes-btn is-success" onClick={randomLoot}>
           Random Loot!
         </button>

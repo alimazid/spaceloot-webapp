@@ -5,6 +5,7 @@ export const networks = {
     lcd: 'http://localhost:3060',
     name: 'localterra',
     ws: 'ws://localhost:3060',
+    finder: '',
   },
   testnet: {
     chainID: 'tequila-0004',
@@ -12,6 +13,7 @@ export const networks = {
     lcd: 'https://tequila-lcd.terra.dev',
     name: 'testnet',
     ws: 'wss://tequila-ws.terra.dev',
+    finder: 'https://finder.terra.money/tequila-0004',
   },
   mainnet: {
     chainID: 'columbus-4',
@@ -19,6 +21,7 @@ export const networks = {
     lcd: 'https://lcd.terra.dev',
     name: 'mainnet',
     ws: 'wss://fcd.terra.dev',
+    finder: 'https://finder.terra.money/columbus-4',
   },
 }
 
