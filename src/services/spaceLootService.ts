@@ -34,7 +34,7 @@ class SpaceLootService {
   }
 
   queryLootset = async (tokenId: BigNumber): Promise<any> => {
-    const { spaceLoot } = addresses[networkStore.name]
+    const { spaceLoot, nft } = addresses[networkStore.name]
     const response = await networkStore.terra.wasm.contractQuery(spaceLoot, {
       lootset: {
         token_id: tokenId.toString(),

@@ -48,13 +48,14 @@ export const LootBox = observer(({ loot, ...props }: Props & BoxProps) => {
       <p className="title">Space Loot #{loot.id || 1}</p>
       <div className="lists">
         <ul className="nes-list is-disc">
-          <li>Part#1 :</li>
-          <li>Part#2 :</li>
-          <li>Part#3 :</li>
-          <li>Part#4 :</li>
-          <li>Part#5 :</li>
-          <li>Part#6 :</li>
-          <li>Part#7 :</li>
+          <li>🚢 Vessel Type : {loot.vessel_type}</li>
+          <li>🎖️ Class : {loot.class}</li>
+          <li>🔫 Weapon : {loot.weapon}</li>
+          <li>💣 Secondary Weapon : {loot.secondary_weapon}</li>
+          <li>🛡️ Shield : {loot.shield}</li>
+          <li>🚀 Propulsion : {loot.propulsion}</li>
+          <li>🪨 Material : {loot.material}</li>
+          <li>🎁 Extra : {loot.extra}</li>
         </ul>
       </div>
     </Box>

@@ -12,16 +12,15 @@ import { Loot } from 'interfaces/loot.interface'
 
 export const HomePage = observer(() => {
   const [isClaiming, setIsClaiming] = useState(false)
-  const [tokenId, setTokenId] = useState<BigNumber>(new BigNumber('NaN'))
+  const [tokenId, setTokenId] = useState<BigNumber>(new BigNumber('1'))
   const [loot, setLoot] = useState<Loot>()
   const debouncedTokenId = useDebounce<BigNumber>(tokenId, 200)
 
   useEffect(() => {
     const sideEffect = async () => {
       setLoot({ id: debouncedTokenId.toNumber() } as any)
-      return // to be removed
       const response = await spaceLootService.queryLootset(debouncedTokenId)
-      setLoot(response.lootset)
+      setLoot(response)
     }
     sideEffect()
   }, [debouncedTokenId])

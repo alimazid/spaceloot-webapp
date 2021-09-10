@@ -18,7 +18,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     }
   }, [])
 
-  useSetup()
+  const ready = useSetup()
 
   return (
     <>
@@ -30,9 +30,9 @@ const App = ({ Component, pageProps }: AppProps) => {
       <StylesProvider injectFirst>
         <MuiThemeProvider theme={theme}>
           <EmotionThemeProvider theme={theme}>
-            <Navbar>
+            {ready && <Navbar>
               <Component {...pageProps} />
-            </Navbar>
+            </Navbar>}
           </EmotionThemeProvider>
         </MuiThemeProvider>
       </StylesProvider>
