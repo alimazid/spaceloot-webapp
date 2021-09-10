@@ -11,7 +11,7 @@ export const gas: {
     gasAdjustment: 1.6,
     defaultGasFee: 100000,
     methods: {
-      claim: { gasLimit: 300000, gasFee: 0 },
+      claim: { gasLimit: 300000, gasFee: 200000 },
     },
   },
   testnet: {
