@@ -7,6 +7,7 @@ import { walletStore } from 'stores/walletStore'
 import { networkService } from './networkService'
 import { walletService } from './walletService'
 import BigNumber from 'bignumber.js'
+import { Loot } from 'interfaces/loot.interface'
 
 class SpaceLootService {
   claim = async (lootId: number) => {
@@ -40,6 +41,22 @@ class SpaceLootService {
         token_id: tokenId.toString(),
       },
     })
+    return response
+  }
+
+  queryMyLoots = async (): Promise<any> => {
+    const { spaceLoot, nft } = addresses[networkStore.name]
+    const response = await networkStore.terra.wasm.contractQuery(spaceLoot, {
+      tokens: {
+        owner: walletStore.address,
+      },
+    })
+    let myLoot: Array<Loot> = new Array<Loot>();
+    for (const tokenId of (response as any).tokens) {
+      const lootSet =  await this.queryLootset(tokenId)
+      myLoot.push(lootSet as Loot)
+    }
+
     return response
   }
 
