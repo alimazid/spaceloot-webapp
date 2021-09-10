@@ -8,10 +8,13 @@ import { Navbar } from 'views/common/Navbar'
 import { useEffect } from 'react'
 import BigNumber from 'bignumber.js'
 import { useSetup } from 'hooks/useSetup'
+import ReactGA from 'react-ga'
 BigNumber.config({ EXPONENTIAL_AT: 78 })
 
 const App = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
+    ReactGA.initialize(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS as string, {})
+    ReactGA.pageview(window.location.pathname + window.location.search)
     const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles) {
       jssStyles.parentElement?.removeChild(jssStyles)

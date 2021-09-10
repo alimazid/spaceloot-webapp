@@ -2,6 +2,7 @@ import React from 'react'
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core'
 
+
 class CustomDocument extends Document {
   static async getInitialProps(ctx: any) {
     const initialProps = await Document.getInitialProps(ctx)
