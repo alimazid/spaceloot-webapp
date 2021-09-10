@@ -29,7 +29,7 @@ export const HomePage = observer(() => {
 
   const handleClaim = async () => {
     setIsClaiming(true)
-    await new Promise((resolve) => setTimeout(resolve, 5000))
+    await spaceLootService.claim(tokenId.toString())
     setIsClaiming(false)
   }
 
