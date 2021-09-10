@@ -7,8 +7,20 @@ import BigNumber from 'bignumber.js'
 import { spaceLootService } from 'services/spaceLootService'
 import { useDebounce } from 'hooks/useDebounce'
 import { Loot } from 'interfaces/loot.interface'
+import styled from '@emotion/styled'
 
 const maxTokenId = 8000
+
+const Divider = styled.div`
+  border-top: 1px solid #ddd;
+  width: 90%;
+  margin: 32px auto;
+  box-shadow: 0 0 2px 1px #ddd;
+`
+const FooterBox = styled(Box)`
+  border: 2px solid white;
+  background: #212529;
+`
 
 export const HomePage = observer(() => {
   const [isClaiming, setIsClaiming] = useState(false)
@@ -57,20 +69,16 @@ export const HomePage = observer(() => {
   }
 
   return (
-    <BitStarBgContainer width="100%" minHeight="50vh" paddingTop="64px">
-      {/* <div className="nes-container with-title is-centered">
-      <p className="title"></p>
-      <p>Good morning. Thou hast had a good night's sleep, I hope.</p>
-    </div> */}
-      <Box marginTop="50px" display="flex" justifyContent="center">
+    <BitStarBgContainer width="100%" paddingTop="32px">
+      <Box display="flex" justifyContent="center">
         <Typography variant="h3" className="nes-text is-primary">
           It's Dangerous to Go Alone! Take This Starship With You
         </Typography>
       </Box>
-      <Box marginTop="50px" display="flex" justifyContent="center">
+      <Box marginTop="24px" display="flex" justifyContent="center">
         <LootBox loot={loot} />
       </Box>
-      <Box paddingTop="50px" display="flex" justifyContent="center" alignItems="center">
+      <Box paddingTop="24px" display="flex" justifyContent="center" alignItems="center">
         <Box marginRight="20px">
           <div className="nes-field">
             <input
@@ -99,26 +107,64 @@ export const HomePage = observer(() => {
           Random Loot!
         </button>
       </Box>
-      <Box display="flex" width="300px" justifyContent="space-between" mx="auto" mt={2}>
-        <a href="https://twitter.com/spaceloot_nft" target="_blank" className="nes-text is-warning">
-          Twitter
-        </a>
-        <a
-          href="https://t.me/joinchat/VJS63IYLV4oyYTE9"
-          target="_blank"
-          className="nes-text is-warning"
-        >
-          Telegram
-        </a>
-        {/* <a href="https://twitter.com/spaceloot_nft" target="_blank" className="nes-text is-warning">
-          GitBook
-        </a> */}
-      </Box>
-
-      {/* <Typography variant="h2" align="center">Recently Claimed</Typography>
-      <Box>
-        <LootGallery />
-      </Box> */}
+      <Divider />
+      <FooterBox display="flex" justifyContent="space-between" mx="auto" p={2}>
+        <span className="nes-text" style={{ color: '#DDD' }}>
+          Connect with us ~{' '}
+          <a
+            href="https://twitter.com/spaceloot_nft"
+            target="_blank"
+            className="nes-text is-warning"
+          >
+            Twitter
+          </a>
+          {'  '}
+          <a
+            href="https://t.me/joinchat/VJS63IYLV4oyYTE9"
+            target="_blank"
+            className="nes-text is-warning"
+          >
+            Telegram
+          </a>
+        </span>
+      </FooterBox>
+      <FooterBox
+        display="flex"
+        justifyContent="space-between"
+        mx="auto"
+        my={2}
+        py={2}
+        px={1}
+        textAlign="center"
+      >
+        <span className="nes-text" style={{ color: '#DDD' }}>
+          Made with ❤️ by
+          <br style={{ marginTop: 4 }} />
+          <a
+            href="https://twitter.com/spaceloot_nft"
+            target="_blank"
+            className="nes-text is-primary"
+          >
+            @apemon_chan
+          </a>
+          {', '}
+          <a href="https://twitter.com/supasonk_" target="_blank" className="nes-text is-primary">
+            @supasonk_
+          </a>
+          {', '}
+          <a href="https://twitter.com/kaoths" target="_blank" className="nes-text is-primary">
+            @kaoths
+          </a>
+          {', '}
+          <a href="https://twitter.com/0xWolfgang_" target="_blank" className="nes-text is-primary">
+            @0xWolfgang_
+          </a>
+          {', and '}
+          <a href="https://twitter.com/unnawut" target="_blank" className="nes-text is-primary">
+            @unnawut
+          </a>
+        </span>
+      </FooterBox>
     </BitStarBgContainer>
   )
 })
