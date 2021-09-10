@@ -30,7 +30,7 @@ const LootOwner = observer((props: { owner: string }) => {
       Owner:{' '}
       {props.owner != '' ? (
         <Link href={url} passHref>
-          {props.owner == walletService.getStoredAddress() ? 'You!' : props.owner}
+          {props.owner == walletService.getStoredAddress() ? 'Captain on the Bridge! The ship is yours.' : props.owner}
         </Link>
       ) : (
         '-'
