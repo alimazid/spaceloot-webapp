@@ -24,7 +24,7 @@ export const Gallery = observer(() => {
     </div> */}
       <Box marginTop="50px" display="flex" justifyContent="center">
         <Typography variant="h3" className="nes-text is-primary">
-          Look at those shiny loots !
+          {loots.length > 0 ? 'Look at those shiny loots ! ' : 'No Loots Yet'} 
         </Typography>
       </Box>
       <Box display="flex" justifyContent="center">

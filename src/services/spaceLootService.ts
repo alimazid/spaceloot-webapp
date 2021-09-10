@@ -46,7 +46,7 @@ class SpaceLootService {
 
   queryMyLoots = async (): Promise<any> => {
     const { spaceLoot, nft } = addresses[networkStore.name]
-    const response = await networkStore.terra.wasm.contractQuery(spaceLoot, {
+    const response = await networkStore.terra.wasm.contractQuery(nft, {
       tokens: {
         owner: walletStore.address,
       },
