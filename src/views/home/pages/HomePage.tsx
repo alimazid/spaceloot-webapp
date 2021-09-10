@@ -1,11 +1,9 @@
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Box, Typography } from '@material-ui/core'
 import { LootBox } from 'views/loot/LootBox'
 import { BitStarBgContainer } from 'views/common/BitStarBgContainer'
-import { randomBytes } from 'crypto'
 import BigNumber from 'bignumber.js'
-import styled from '@emotion/styled'
 import { spaceLootService } from 'services/spaceLootService'
 import { useDebounce } from 'hooks/useDebounce'
 import { Loot } from 'interfaces/loot.interface'
@@ -20,14 +18,24 @@ export const HomePage = observer(() => {
   const [loot, setLoot] = useState<Loot>()
   const debouncedTokenId = useDebounce<BigNumber>(tokenId, 200)
 
+  const fetchLootTimer = useRef<NodeJS.Timer | null>(null)
+
+  const fetchLoot = useCallback(async () => {
+    const response = await spaceLootService.queryLootset(debouncedTokenId)
+    setLoot(response)
+  }, [debouncedTokenId])
+
   useEffect(() => {
-    const sideEffect = async () => {
-      const response = await spaceLootService.queryLootset(debouncedTokenId)
-      setLoot(response)
+    if (fetchLootTimer.current) {
+      clearInterval(fetchLootTimer.current)
     }
-    const intervalId = setInterval(sideEffect, 10000)
+    fetchLoot()
+    fetchLootTimer.current = setInterval(fetchLoot, 10000)
     return () => {
-      clearInterval(intervalId)
+      if (fetchLootTimer.current) {
+        clearInterval(fetchLootTimer.current)
+        fetchLootTimer.current = null
+      }
     }
   }, [debouncedTokenId])
 
