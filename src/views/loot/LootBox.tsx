@@ -3,6 +3,7 @@ import { Box, BoxProps } from '@material-ui/core'
 import { Loot } from 'interfaces/loot.interface'
 import { networks } from 'constants/networks'
 import { networkStore } from 'stores/networkStore'
+import { walletService } from 'services/walletService'
 import { Skeleton } from '@material-ui/lab'
 import Link from 'next/link'
 type Props = {
@@ -23,7 +24,7 @@ const LootProperty = (props: any) => {
 const LootOwner = (props: any) => {
   const url = networks[networkStore.name].finder + '/address/' + props.owner
   return (
-    <p>Owner: {props.owner != '' ? <Link href={url} passHref>{props.owner}</Link> : '-'}</p>
+    <p>Owner: {props.owner != '' ? <Link href={url} passHref>{props.owner == walletService.getStoredAddress() ? 'You!' : props.owner}</Link> : '-'}</p>
   )
 }
 
