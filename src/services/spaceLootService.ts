@@ -57,7 +57,7 @@ class SpaceLootService {
       myLoot.push(lootSet as Loot)
     }
 
-    return response
+    return myLoot
   }
 
   queryLatestBlock = async () => {
