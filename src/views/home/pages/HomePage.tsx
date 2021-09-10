@@ -159,6 +159,10 @@ export const HomePage = observer(() => {
           <a href="https://twitter.com/0xWolfgang_" target="_blank" className="nes-text is-primary">
             @0xWolfgang_
           </a>
+          {', '}
+          <a href="https://twitter.com/pchayvimol" target="_blank" className="nes-text is-primary">
+            @pchayvimol
+          </a>
           {', and '}
           <a href="https://twitter.com/unnawut" target="_blank" className="nes-text is-primary">
             @unnawut
