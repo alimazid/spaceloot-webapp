@@ -4,8 +4,8 @@ export const addresses: Record<string, { spaceLoot: string, nft: string }> = {
     nft: ''
   },
   testnet: {
-    spaceLoot: 'terra1e0587xfqxvruxyyrtevwqj5upufltsr0xp6e7e',
-    nft: 'terra1h0kt7mw7nntug88cxdtk0wl6dd3dsn6sj98jup'
+    spaceLoot: 'terra1n6uct0xv3977pc7nln8rcy8txehs2wwj7fx6hc',
+    nft: 'terra1gec7t6zgx66aglarm8twkhjaz00fjtqrmf7v4k'
   },
   mainnet: {
     spaceLoot: '',
