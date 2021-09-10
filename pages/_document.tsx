@@ -24,9 +24,8 @@ class CustomDocument extends Document {
             async
             src="https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}"
           ></script>
-          <script>
-            dangerouslySetInnerHTML=
-            {{
+          <script
+            dangerouslySetInnerHTML={{
               __html: `
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
@@ -36,7 +35,7 @@ class CustomDocument extends Document {
                 });
               `,
             }}
-          </script>
+          />
         </Head>
         <body>
           <Main />
