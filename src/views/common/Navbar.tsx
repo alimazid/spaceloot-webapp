@@ -97,7 +97,7 @@ export const Navbar = observer((props: Props) => {
             ) : (
               <Link href="/" passHref>
                 <Box component="a" display="flex">
-                  <h2>SpaceLoot!</h2>
+                  <h2 style={{ margin: 0 }}>SpaceLoot!</h2>
                 </Box>
               </Link>
             )}
