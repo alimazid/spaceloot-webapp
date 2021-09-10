@@ -99,6 +99,21 @@ export const HomePage = observer(() => {
           Random Loot!
         </button>
       </Box>
+      <Box display="flex" width="300px" justifyContent="space-between" mx="auto" mt={2}>
+        <a href="https://twitter.com/spaceloot_nft" target="_blank" className="nes-text is-warning">
+          Twitter
+        </a>
+        <a
+          href="https://t.me/joinchat/VJS63IYLV4oyYTE9"
+          target="_blank"
+          className="nes-text is-warning"
+        >
+          Telegram
+        </a>
+        {/* <a href="https://twitter.com/spaceloot_nft" target="_blank" className="nes-text is-warning">
+          GitBook
+        </a> */}
+      </Box>
 
       {/* <Typography variant="h2" align="center">Recently Claimed</Typography>
       <Box>
