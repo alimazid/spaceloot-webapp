@@ -78,7 +78,7 @@ export const LootBox = observer(({ loot, ...props }: Props & BoxProps) => {
 
   return (
     <Box className="nes-container is-dark with-title" {...props}>
-      <p className="title">Space Loot #{loot.id || '?'}</p>
+      <p className="title">Space Loot #{loot.token_id || '?'}</p>
       <div className="lists">
         <ul className="nes-list is-disc">
           <LootProperty>

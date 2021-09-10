@@ -25,7 +25,7 @@ export const HomePage = observer(() => {
       const response = await spaceLootService.queryLootset(debouncedTokenId)
       setLoot(response)
     }
-    const intervalId = setInterval(sideEffect, 1000)
+    const intervalId = setInterval(sideEffect, 10000)
     return () => {
       clearInterval(intervalId)
     }

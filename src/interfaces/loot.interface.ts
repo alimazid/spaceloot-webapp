@@ -1,5 +1,5 @@
 export interface Loot {
-  id: number
+  token_id: number
   owner: string
   is_claimed: boolean
   weapon: string
