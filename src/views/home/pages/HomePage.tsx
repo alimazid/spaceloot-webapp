@@ -22,11 +22,13 @@ export const HomePage = observer(() => {
 
   useEffect(() => {
     const sideEffect = async () => {
-      setLoot(undefined)
       const response = await spaceLootService.queryLootset(debouncedTokenId)
       setLoot(response)
     }
-    sideEffect()
+    const intervalId = setInterval(sideEffect, 1000)
+    return () => {
+      clearInterval(intervalId)
+    }
   }, [debouncedTokenId])
 
   const handleClaim = async () => {

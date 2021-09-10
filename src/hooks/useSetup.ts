@@ -29,7 +29,7 @@ export const useSetup = () => {
       }, pollingIntervals.contract)
 
       // Without some sleep, page init breaks when current terra station network is different from constants/networks.defaultNetwork
-      await new Promise((resolve) => setTimeout(resolve, 100))
+      await new Promise((resolve) => setTimeout(resolve, 200))
       setReady(true)
     }
     setup()

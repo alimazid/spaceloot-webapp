@@ -10,7 +10,7 @@ import BigNumber from 'bignumber.js'
 import { Loot } from 'interfaces/loot.interface'
 
 class SpaceLootService {
-  claim = async (lootId: number) => {
+  claim = async (lootId: string) => {
     if (!walletStore.isConnected) return
 
     const sender = walletStore.address
@@ -51,9 +51,9 @@ class SpaceLootService {
         owner: walletStore.address,
       },
     })
-    let myLoot: Array<Loot> = new Array<Loot>();
+    let myLoot: Array<Loot> = new Array<Loot>()
     for (const tokenId of (response as any).tokens) {
-      const lootSet =  await this.queryLootset(tokenId)
+      const lootSet = await this.queryLootset(tokenId)
       myLoot.push(lootSet as Loot)
     }
 
