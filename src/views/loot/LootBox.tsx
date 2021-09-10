@@ -12,21 +12,32 @@ type Props = {
 
 const LootProperty = (props: any) => {
   return (
-    <li style={{
-      paddingLeft: '1.5em',
-      textIndent: '-2em',
-    }}>
+    <li
+      style={{
+        paddingLeft: '1.5em',
+        textIndent: '-2em',
+      }}
+    >
       {props.children}
     </li>
   )
 }
 
-const LootOwner = (props: any) => {
+const LootOwner = observer((props: { owner: string }) => {
   const url = networks[networkStore.name].finder + '/address/' + props.owner
   return (
-    <p>Owner: {props.owner != '' ? <Link href={url} passHref>{props.owner == walletService.getStoredAddress() ? 'You!' : props.owner}</Link> : '-'}</p>
+    <p>
+      Owner:{' '}
+      {props.owner != '' ? (
+        <Link href={url} passHref>
+          {props.owner == walletService.getStoredAddress() ? 'You!' : props.owner}
+        </Link>
+      ) : (
+        '-'
+      )}
+    </p>
   )
-}
+})
 
 const RectSkeleton = (props: any) => {
   return (
@@ -70,14 +81,31 @@ export const LootBox = observer(({ loot, ...props }: Props & BoxProps) => {
       <p className="title">Space Loot #{loot.id || '?'}</p>
       <div className="lists">
         <ul className="nes-list is-disc">
-          <LootProperty><span className="nes-text is-primary">🚢 Vessel Type:</span> {loot.vessel_type}</LootProperty>
-          <LootProperty><span className="nes-text is-primary">🎖️ Class:</span> {loot.class}</LootProperty>
-          <LootProperty><span className="nes-text is-primary">🔫 Weapon:</span> {loot.weapon}</LootProperty>
-          <LootProperty><span className="nes-text is-primary">💣 Secondary Weapon:</span> {loot.secondary_weapon}</LootProperty>
-          <LootProperty><span className="nes-text is-primary">🛡️ Shield:</span> {loot.shield}</LootProperty>
-          <LootProperty><span className="nes-text is-primary">🚀 Propulsion:</span> {loot.propulsion}</LootProperty>
-          <LootProperty><span className="nes-text is-primary">🪨 Material:</span> {loot.material}</LootProperty>
-          <LootProperty><span className="nes-text is-primary">🎁 Extra:</span> {loot.extra}</LootProperty>
+          <LootProperty>
+            <span className="nes-text is-primary">🚢 Vessel Type:</span> {loot.vessel_type}
+          </LootProperty>
+          <LootProperty>
+            <span className="nes-text is-primary">🎖️ Class:</span> {loot.class}
+          </LootProperty>
+          <LootProperty>
+            <span className="nes-text is-primary">🔫 Weapon:</span> {loot.weapon}
+          </LootProperty>
+          <LootProperty>
+            <span className="nes-text is-primary">💣 Secondary Weapon:</span>{' '}
+            {loot.secondary_weapon}
+          </LootProperty>
+          <LootProperty>
+            <span className="nes-text is-primary">🛡️ Shield:</span> {loot.shield}
+          </LootProperty>
+          <LootProperty>
+            <span className="nes-text is-primary">🚀 Propulsion:</span> {loot.propulsion}
+          </LootProperty>
+          <LootProperty>
+            <span className="nes-text is-primary">🪨 Material:</span> {loot.material}
+          </LootProperty>
+          <LootProperty>
+            <span className="nes-text is-primary">🎁 Extra:</span> {loot.extra}
+          </LootProperty>
         </ul>
         <LootOwner owner={loot.owner} />
       </div>

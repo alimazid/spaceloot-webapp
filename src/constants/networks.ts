@@ -1,4 +1,13 @@
-export const networks = {
+type NetworkInfo = {
+  chainID: string
+  fcd: string
+  lcd: string
+  name: string
+  ws: string
+  finder: string
+}
+
+export const networks: Record<string, NetworkInfo> = {
   localterra: {
     chainID: 'localterra',
     fcd: 'http://localhost:3060',
