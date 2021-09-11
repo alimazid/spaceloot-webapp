@@ -20,6 +20,13 @@ const Divider = styled.div`
 const FooterBox = styled(Box)`
   border: 2px solid white;
   background: #212529;
+  span {
+    color: #ddd;
+  }
+  i {
+    margin: 0;
+    transform-origin: center;
+  }
 `
 
 export const HomePage = observer(() => {
@@ -130,6 +137,7 @@ export const HomePage = observer(() => {
       </FooterBox>
       <FooterBox
         display="flex"
+        flexDirection="column"
         justifyContent="space-between"
         mx="auto"
         my={2}
@@ -137,9 +145,10 @@ export const HomePage = observer(() => {
         px={1}
         textAlign="center"
       >
-        <span className="nes-text" style={{ color: '#DDD' }}>
-          Made with ❤️ by
-          <br style={{ marginTop: 4 }} />
+        <span className="nes-text" style={{ marginBottom: 6 }}>
+          Made with <i className="nes-icon heart" /> by
+        </span>
+        <span className="nes-text">
           <a
             href="https://twitter.com/spaceloot_nft"
             target="_blank"

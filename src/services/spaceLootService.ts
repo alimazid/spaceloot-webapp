@@ -36,6 +36,16 @@ class SpaceLootService {
     return response
   }
 
+  queryLootBalance = async (owner: string): Promise<number> => {
+    const { nft } = addresses[networkStore.name]
+    const { count } = await networkStore.terra.wasm.contractQuery(nft, {
+      balance: {
+        owner,
+      },
+    })
+    return count as number
+  }
+
   queryLootset = async (tokenId: string): Promise<Loot> => {
     const { spaceLoot } = addresses[networkStore.name]
     const response: Loot = await networkStore.terra.wasm.contractQuery(spaceLoot, {
@@ -46,14 +56,33 @@ class SpaceLootService {
     return response
   }
 
+  queryLootsetByIds = async (tokenIds: string[]): Promise<Loot[]> => {
+    return Promise.all(
+      tokenIds.map(async (tokenId) => {
+        return this.queryLootset(tokenId)
+      })
+    )
+  }
+
   queryTokenIdsByAddress = async (owner: string): Promise<string[]> => {
+    const balance = await this.queryLootBalance(walletStore.address)
+
+    let tokenIds: string[] = []
+    let startAfter: string | undefined
     const { nft } = addresses[networkStore.name]
-    const { tokens }: { tokens: string[] } = await networkStore.terra.wasm.contractQuery(nft, {
-      tokens: {
-        owner,
-      },
-    })
-    return tokens
+
+    while (tokenIds.length < balance) {
+      const { tokens }: { tokens: string[] } = await networkStore.terra.wasm.contractQuery(nft, {
+        tokens: {
+          owner,
+          limit: 30,
+          ...(!!startAfter && { start_after: startAfter }),
+        },
+      })
+      tokenIds = [...tokenIds, ...tokens]
+      startAfter = tokenIds[tokenIds.length - 1]
+    }
+    return tokenIds
   }
 
   queryLootsByAddress = async (
