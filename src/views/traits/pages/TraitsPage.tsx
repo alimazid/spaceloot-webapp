@@ -22,7 +22,7 @@ const StyledTD = styled.td`
   font-size: 12px!important;
 `
 export const Traits = observer(() => {
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(0)
   const [filter, setFilter] = useState('')
   const [totalPage, setTotalPage] = useState(traits.length / 10)
   const [pageSize, setPageSize] = useState(10)
