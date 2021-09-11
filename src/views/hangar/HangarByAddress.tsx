@@ -7,6 +7,7 @@ import { Loot } from 'interfaces/loot.interface'
 import { spaceLootService } from 'services/spaceLootService'
 import { useAsyncMemo } from 'hooks/useAsyncMemo'
 import { walletStore } from 'stores/walletStore'
+import { maskWalletAddress } from 'utils/wallet.utils'
 
 type Props = {
   owner: string
@@ -33,21 +34,18 @@ export const HangarByAddress = observer(({ owner }: Props) => {
     []
   )
 
-  const isOwned = useMemo(() => {
-    return walletStore.address === owner
-  }, [walletStore.address])
-
   const titleText = useMemo(() => {
+    const isOwned = walletStore.address === owner
     const awesome = isOwned ? 'Awesome! ' : ' '
-    const article = isOwned ? 'your' : 'the'
+    const ownerTxt = isOwned ? 'your' : `${maskWalletAddress(owner)}'s`
     if (totalLoots === 0) {
       return `No ships in the hangar`
     } else if (totalLoots === 1) {
-      return `${awesome}There is a ship in ${article} hangar`
+      return `${awesome}There is a ship in ${ownerTxt} hangar`
     } else {
-      return `${awesome}There are ${totalLoots} ships in ${article} hangar`
+      return `${awesome}There are ${totalLoots} ships in ${ownerTxt} hangar`
     }
-  }, [totalLoots])
+  }, [totalLoots, walletStore.address])
 
   return (
     <BitStarBgContainer py={3}>
