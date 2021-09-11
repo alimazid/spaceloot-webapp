@@ -45,14 +45,6 @@ export const Trait = observer(() => {
           🚀 Ship Attributes!
         </Typography>
       </Box>
-      {/* <Box zIndex={10} display="flex" justifyContent="flex-end" paddingRight="60px" paddingLeft="60px" paddingBottom="20px">
-        <Box width='600px' >
-        <div className="nes-container is-dark">
-          <label for="name_field">Search for trait</label>
-          <input type="text" id="dark_field" className="nes-input is-dark" placeholder="Search.." />
-        </div>
-        </Box>
-      </Box> */}
       <Box paddingRight="60px" paddingLeft="60px" paddingBottom="60px">
         <StyledTable className="nes-table is-dark is-bordered is-centered">
           <thead>
