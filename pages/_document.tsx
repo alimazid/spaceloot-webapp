@@ -2,7 +2,6 @@ import React from 'react'
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core'
 
-
 class CustomDocument extends Document {
   static async getInitialProps(ctx: any) {
     const initialProps = await Document.getInitialProps(ctx)
@@ -20,6 +19,16 @@ class CustomDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
           />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:site" content="@spaceloot_nft" />
+          <meta name="twitter:creator" content="@spaceloot_nft" />
+          <meta property="og:url" content="https://spaceloot.xyz/" />
+          <meta property="og:title" content="SpaceLootNFT" />
+          <meta
+            property="og:description"
+            content="A Starship-themed on-chain randomized loot on Terra."
+          />
+          <meta property="og:image" content={'https://spaceloot.xyz/static/bg.jpeg'} />
         </Head>
         <body>
           <Main />
