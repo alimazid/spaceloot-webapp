@@ -42,7 +42,7 @@ export const Traits = observer(() => {
     <BitStarBgContainer width="100%" minHeight="50vh" paddingTop="64px">
       <Box paddingBottom="60px" display="flex" justifyContent="center">
         <Typography variant="h3" className="nes-text is-primary">
-          🚀 Ship Attributes!
+          🚀 Ship Traits!
         </Typography>
       </Box>
       <Box paddingRight="60px" paddingLeft="60px" paddingBottom="60px">
