@@ -1,6 +1,18 @@
 import { Global, css } from '@emotion/react'
 
 const styles = css`
+  .pagination{
+    display: flex;
+    align-items: center;
+    padding-left: 0px;
+    list-style: none!important;
+    border-radius: .25rem;
+    margin-top: .5rem;
+    margin-bottom: .5rem
+  }
+
+
+
   body {
     padding: 0;
     margin: 0;
