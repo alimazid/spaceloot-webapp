@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite'
 import { HangarByAddress } from '../HangarByAddress'
 
 export const Hangar = observer(() => {
+  const transferable = false
   const router = useRouter()
   const owner = useMemo(() => {
     return router.query?.address as string

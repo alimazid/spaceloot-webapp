@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Box, BoxProps } from '@material-ui/core'
 import { Loot } from 'interfaces/loot.interface'
@@ -18,6 +19,33 @@ const LootProperty = (props: any) => {
     >
       {props.children}
     </li>
+  )
+}
+
+const LootTransfer = (props: {token_id:string}) => {
+
+  const [recipient, setRecipient] = useState<Loot>()
+  const handleTransfer = async () => {
+    //setIsClaiming(true)
+    await spaceLootService.transfer('test_addr', props.token_id)
+    //setIsClaiming(false)
+  }
+
+  return (
+    <Box marginRight="20px">
+      <div className="nes-field">
+        <input
+          type="number"
+          id="name_field"
+          className="nes-input"
+          value=""
+          style={{ textAlign: 'right' }}
+        />
+      </div>
+      <button type="button" className="nes-btn is-success" onClick={handleTransfer}>
+        Transfer Loot!
+      </button>
+    </Box>
   )
 }
 
@@ -57,9 +85,10 @@ const RectSkeleton = (props: any) => {
 type Props = {
   loot?: Loot
   hideOwner?: boolean | string
+  transferable?: boolean | string
 }
 
-export const LootBox = observer(({ loot, hideOwner, ...props }: Props & BoxProps) => {
+export const LootBox = observer(({ loot, hideOwner, transferable, ...props }: Props & BoxProps) => {
   if (!loot) {
     return (
       <Box className="nes-container is-dark with-title" {...props}>
@@ -79,12 +108,6 @@ export const LootBox = observer(({ loot, hideOwner, ...props }: Props & BoxProps
         </div>
       </Box>
     )
-  }
-
-  const handleTransfer = async () => {
-    //setIsClaiming(true)
-    await spaceLootService.transfer('terra1eell2f9n8j7aapz897sgc9cw3gu8apxfkdzser', loot.token_id.toString())
-    //setIsClaiming(false)
   }
 
   return (
@@ -119,9 +142,7 @@ export const LootBox = observer(({ loot, hideOwner, ...props }: Props & BoxProps
           </LootProperty>
         </ul>
         {!hideOwner && <LootOwner owner={loot.owner} />}
-        <button type="button" className="nes-btn is-success" onClick={handleTransfer}>
-          Transfer Loot!
-        </button>
+        {transferable && <LootTransfer token_id={loot.token_id.toString()} />}
       </div>
     </Box>
   )

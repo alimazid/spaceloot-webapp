@@ -53,6 +53,7 @@ type HangarProps = {
 export const HangarByAddress = observer(({ owner }: HangarProps) => {
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
+  const [transferable, setTransferable] = useState(false)
 
   const totalLoots = useAsyncMemo<number>(
     async () => {
@@ -70,6 +71,11 @@ export const HangarByAddress = observer(({ owner }: HangarProps) => {
     [owner, page, pageSize],
     []
   )
+
+  const updateTransferable = useMemo(() => {
+    const isOwned = walletStore.address === owner
+    setTransferable(isOwned)
+  }, [walletStore.address])
 
   const titleText = useMemo(() => {
     const isOwned = walletStore.address === owner
@@ -90,7 +96,7 @@ export const HangarByAddress = observer(({ owner }: HangarProps) => {
         <HangarTitle totalLoots={totalLoots} owner={owner} />
       </Box>
       <Box display="flex" justifyContent="center">
-        <LootHangar loots={loots} />
+        <LootHangar loots={loots} transferable={transferable} />
       </Box>
     </BitStarBgContainer>
   )
