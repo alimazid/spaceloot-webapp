@@ -4,6 +4,7 @@ import { Loot } from 'interfaces/loot.interface'
 import { networks } from 'constants/networks'
 import { networkStore } from 'stores/networkStore'
 import { walletService } from 'services/walletService'
+import { spaceLootService } from 'services/spaceLootService'
 import { Skeleton } from '@material-ui/lab'
 import Link from 'next/link'
 
@@ -80,6 +81,12 @@ export const LootBox = observer(({ loot, hideOwner, ...props }: Props & BoxProps
     )
   }
 
+  const handleTransfer = async () => {
+    //setIsClaiming(true)
+    await spaceLootService.transfer('terra1eell2f9n8j7aapz897sgc9cw3gu8apxfkdzser', loot.token_id.toString())
+    //setIsClaiming(false)
+  }
+
   return (
     <Box className="nes-container is-dark with-title" {...props}>
       <p className="title">Space Loot #{loot.token_id || '?'}</p>
@@ -112,6 +119,9 @@ export const LootBox = observer(({ loot, hideOwner, ...props }: Props & BoxProps
           </LootProperty>
         </ul>
         {!hideOwner && <LootOwner owner={loot.owner} />}
+        <button type="button" className="nes-btn is-success" onClick={handleTransfer}>
+          Transfer Loot!
+        </button>
       </div>
     </Box>
   )
