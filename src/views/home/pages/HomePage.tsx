@@ -33,7 +33,7 @@ export const HomePage = observer(() => {
   const fetchLootTimer = useRef<NodeJS.Timer | null>(null)
 
   const fetchLoot = useCallback(async () => {
-    const response = await spaceLootService.queryLootset(debouncedTokenId)
+    const response = await spaceLootService.queryLootset(debouncedTokenId.toString())
     setLoot(response)
   }, [debouncedTokenId])
 

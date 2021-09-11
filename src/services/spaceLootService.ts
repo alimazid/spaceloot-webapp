@@ -34,30 +34,31 @@ class SpaceLootService {
     return response
   }
 
-  queryLootset = async (tokenId: BigNumber): Promise<any> => {
-    const { spaceLoot, nft } = addresses[networkStore.name]
-    const response = await networkStore.terra.wasm.contractQuery(spaceLoot, {
+  queryLootset = async (tokenId: string): Promise<Loot> => {
+    const { spaceLoot } = addresses[networkStore.name]
+    const response: Loot = await networkStore.terra.wasm.contractQuery(spaceLoot, {
       lootset: {
-        token_id: tokenId.toString(),
+        token_id: tokenId,
       },
     })
     return response
   }
 
-  queryMyLoots = async (): Promise<any> => {
-    const { spaceLoot, nft } = addresses[networkStore.name]
-    const response = await networkStore.terra.wasm.contractQuery(nft, {
+  queryMyLoots = async (): Promise<Loot[]> => {
+    const { nft } = addresses[networkStore.name]
+    const response: { tokens: string[] } = await networkStore.terra.wasm.contractQuery(nft, {
       tokens: {
         owner: walletStore.address,
       },
     })
-    let myLoot: Array<Loot> = new Array<Loot>()
-    for (const tokenId of (response as any).tokens) {
-      const lootSet = await this.queryLootset(tokenId)
-      myLoot.push(lootSet as Loot)
-    }
 
-    return myLoot
+    const loots: Loot[] = await Promise.all(
+      response.tokens.map(async (tokenId) => {
+        return this.queryLootset(tokenId)
+      })
+    )
+
+    return loots
   }
 
   queryLatestBlock = async () => {
