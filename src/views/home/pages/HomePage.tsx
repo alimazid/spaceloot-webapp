@@ -2,6 +2,7 @@ import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Box, Typography } from '@material-ui/core'
 import { LootBox } from 'views/loot/LootBox'
+import Link from 'next/link'
 import { BitStarBgContainer } from 'views/common/BitStarBgContainer'
 import BigNumber from 'bignumber.js'
 import { spaceLootService } from 'services/spaceLootService'
@@ -108,13 +109,20 @@ export const HomePage = observer(() => {
         </button>
       </Box>
       <Divider />
-      <FooterBox display="flex" justifyContent="space-between" mx="auto" p={2}>
+      <FooterBox display="flex" alignItems="center" justifyContent="space-between" mx="auto" my={2} p={2}>
+        <span className="nes-text is-error">
+          <Link href="/trait" passHref>
+            <><i class="nes-icon star" /> Check Your Spaceship Traits </>
+          </Link>
+        </span>
+      </FooterBox>
+      <FooterBox display="flex" justifyContent="space-between" mx="auto" p={3}>
         <span className="nes-text" style={{ color: '#DDD' }}>
           Connect with us ~{' '}
           <a
             href="https://twitter.com/spaceloot_nft"
             target="_blank"
-            className="nes-text is-warning"
+            className="nes-text is-warning" rel="noreferrer"
           >
             Twitter
           </a>
@@ -122,7 +130,7 @@ export const HomePage = observer(() => {
           <a
             href="https://t.me/joinchat/VJS63IYLV4oyYTE9"
             target="_blank"
-            className="nes-text is-warning"
+            className="nes-text is-warning" rel="noreferrer"
           >
             Telegram
           </a>
@@ -143,29 +151,36 @@ export const HomePage = observer(() => {
           <a
             href="https://twitter.com/spaceloot_nft"
             target="_blank"
-            className="nes-text is-primary"
+            className="nes-text is-primary" rel="noreferrer"
           >
             @apemon_chan
           </a>
           {', '}
-          <a href="https://twitter.com/supasonk_" target="_blank" className="nes-text is-primary">
+          <a href="https://twitter.com/supasonk_" target="_blank" className="nes-text is-primary" rel="noreferrer">
             @supasonk_
           </a>
           {', '}
-          <a href="https://twitter.com/kaoths" target="_blank" className="nes-text is-primary">
+          <a href="https://twitter.com/kaoths" target="_blank" className="nes-text is-primary" rel="noreferrer">
             @kaoths
           </a>
           {', '}
-          <a href="https://twitter.com/0xWolfgang_" target="_blank" className="nes-text is-primary">
+          <a href="https://twitter.com/0xWolfgang_" target="_blank" className="nes-text is-primary" rel="noreferrer">
             @0xWolfgang_
           </a>
           {', '}
-          <a href="https://twitter.com/pchayvimol" target="_blank" className="nes-text is-primary">
+          <a href="https://twitter.com/pchayvimol" target="_blank" className="nes-text is-primary" rel="noreferrer">
             @pchayvimol
           </a>
           {', and '}
-          <a href="https://twitter.com/unnawut" target="_blank" className="nes-text is-primary">
+          <a href="https://twitter.com/unnawut" target="_blank" className="nes-text is-primary" rel="noreferrer">
             @unnawut
+          </a>
+          <br />
+          <a href="https://github.com/nostalgic-css/NES.css/" target="_blank" className="nes-text is-primary" rel="noreferrer">
+            <Box display="flex" justifyContent="center" alignItems="center">
+              <i class="nes-jp-logo" />
+              Special Thank to nes.css for Awesome CSS
+            </Box>
           </a>
         </span>
       </FooterBox>
