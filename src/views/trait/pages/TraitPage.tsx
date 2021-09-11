@@ -27,7 +27,7 @@ export const Trait = observer(() => {
   const [totalPage, setTotalPage] = useState(traits.length / 10)
   const [pageSize, setPageSize] = useState(10)
   const [loots, setLoots] = useState(traits.slice(0, pageSize))
-  const handlePageChange = ({ selected }) => {
+  const handlePageChange = ({ selected } : { selected: any }) => {
     setPage(selected + 1)
   }
   useEffect(() => {
@@ -42,17 +42,17 @@ export const Trait = observer(() => {
     <BitStarBgContainer width="100%" minHeight="50vh" paddingTop="64px">
       <Box paddingBottom="60px" display="flex" justifyContent="center">
         <Typography variant="h3" className="nes-text is-primary">
-          🚀 Ship Statistics!
+          🚀 Ship Attributes!
         </Typography>
       </Box>
-      <Box zIndex={10} display="flex" justifyContent="flex-end" paddingRight="60px" paddingLeft="60px" paddingBottom="20px">
+      {/* <Box zIndex={10} display="flex" justifyContent="flex-end" paddingRight="60px" paddingLeft="60px" paddingBottom="20px">
         <Box width='600px' >
         <div className="nes-container is-dark">
           <label for="name_field">Search for trait</label>
           <input type="text" id="dark_field" className="nes-input is-dark" placeholder="Search.." />
         </div>
         </Box>
-      </Box>
+      </Box> */}
       <Box paddingRight="60px" paddingLeft="60px" paddingBottom="60px">
         <StyledTable className="nes-table is-dark is-bordered is-centered">
           <thead>
@@ -95,6 +95,8 @@ export const Trait = observer(() => {
             breakLinkClassName={'nes-btn is-warning'}
             nextLinkClassName={'nes-btn'}
             previousLinkClassName={'nes-btn'}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
             previousLabel='<'
             nextLabel='>'
             initialPage={page}
