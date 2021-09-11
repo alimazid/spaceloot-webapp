@@ -21,6 +21,13 @@ const Divider = styled.div`
 const FooterBox = styled(Box)`
   border: 2px solid white;
   background: #212529;
+  span {
+    color: #ddd;
+  }
+  i {
+    margin: 0;
+    transform-origin: center;
+  }
 `
 
 export const HomePage = observer(() => {
@@ -138,6 +145,7 @@ export const HomePage = observer(() => {
       </FooterBox>
       <FooterBox
         display="flex"
+        flexDirection="column"
         justifyContent="space-between"
         mx="auto"
         my={2}
@@ -145,9 +153,10 @@ export const HomePage = observer(() => {
         px={1}
         textAlign="center"
       >
-        <span className="nes-text" style={{ color: '#DDD' }}>
-          Made with ❤️ by
-          <br />
+        <span className="nes-text" style={{ marginBottom: 6 }}>
+          Made with <i className="nes-icon heart" /> by
+        </span>
+        <span className="nes-text">
           <a
             href="https://twitter.com/spaceloot_nft"
             target="_blank"
@@ -177,7 +186,7 @@ export const HomePage = observer(() => {
           </a>
           <br />
           {'Special thanks to'} <a href="https://github.com/nostalgic-css/NES.css/" target="_blank" className="nes-text is-primary" rel="noreferrer">NES.css</a>
-          {' for awesome CSS'} <i className="nes-jp-logo is-small" style={{ transform: 'scale(0.5)', top: '10px', left: '-20px' }} />
+          {' for awesome CSS'} <i className="nes-jp-logo is-small" style={{ transform: 'scale(0.5)', top: '7px', left: '-20px' }} />
         </span>
       </FooterBox>
     </BitStarBgContainer>

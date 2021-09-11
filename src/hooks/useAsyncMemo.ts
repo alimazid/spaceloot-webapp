@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
-export const useAsyncMemo = <T>(factory: () => Promise<T>, deps: any[], initialValue?: T) => {
-  const [result, setResult] = useState<T | undefined>(initialValue)
+export const useAsyncMemo = <T>(factory: () => Promise<T>, deps: any[], initialValue: T): T => {
+  const [result, setResult] = useState<T>(initialValue)
 
   const activeRef = useRef<boolean | null>(null)
 

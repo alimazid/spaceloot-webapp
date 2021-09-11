@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import { useMemo, useState } from 'react'
+import { ChangeEvent, useMemo, useState } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { LootHangar } from 'views/loot/LootHangar'
 import { BitStarBgContainer } from 'views/common/BitStarBgContainer'
@@ -8,6 +8,9 @@ import { spaceLootService } from 'services/spaceLootService'
 import { useAsyncMemo } from 'hooks/useAsyncMemo'
 import { walletStore } from 'stores/walletStore'
 import { maskWalletAddress } from 'utils/wallet.utils'
+import { paginate } from 'utils/pagination.utils'
+import styled from '@emotion/styled'
+import { clamp } from 'utils/number.utils'
 
 type TitleProps = {
   totalLoots?: number
@@ -46,18 +49,33 @@ const HangarTitle = observer(({ totalLoots, owner }: TitleProps) => {
   )
 })
 
+const PaginatorBox = styled(Box)`
+  width: 400px;
+  color: white;
+  border: 2px solid white;
+  background: #212529;
+  & div *:not(:last-child) {
+    margin-right: 8px;
+  }
+`
 type HangarProps = {
   owner: string
 }
-
 export const HangarByAddress = observer(({ owner }: HangarProps) => {
   const [page, setPage] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
+  const [pageSize, setPageSize] = useState(5)
+
+  const allTokenIds = useAsyncMemo<string[]>(
+    async () => {
+      return spaceLootService.queryTokenIdsByAddress(owner)
+    },
+    [owner],
+    []
+  )
 
   const totalLoots = useAsyncMemo<number>(
     async () => {
-      const tokenIds = await spaceLootService.queryTokenIdsByAddress(owner)
-      return tokenIds.length
+      return spaceLootService.queryLootBalance(owner)
     },
     [owner],
     0
@@ -65,33 +83,56 @@ export const HangarByAddress = observer(({ owner }: HangarProps) => {
 
   const loots = useAsyncMemo<Loot[]>(
     async () => {
-      return spaceLootService.queryLootsByAddress(owner, { page, pageSize })
+      return spaceLootService.queryLootsetByIds(paginate(allTokenIds, { page, pageSize }))
     },
-    [owner, page, pageSize],
+    [owner, allTokenIds, page, pageSize],
     []
   )
 
-  const titleText = useMemo(() => {
-    const isOwned = walletStore.address === owner
-    const awesome = isOwned ? 'Awesome! ' : ' '
-    const ownerTxt = isOwned ? 'your' : `${maskWalletAddress(owner)}'s`
-    if (totalLoots === 0) {
-      return `No ships in the hangar`
-    } else if (totalLoots === 1) {
-      return `${awesome}There is a ship in ${ownerTxt} hangar`
-    } else {
-      return `${awesome}There are ${totalLoots} ships in ${ownerTxt} hangar`
+  const lastPage = useMemo(() => {
+    return Math.ceil(totalLoots / pageSize)
+  }, [totalLoots, pageSize])
+
+  const handlePageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value !== '') {
+      setPage(clamp(+e.target.value, 1, lastPage))
     }
-  }, [totalLoots, walletStore.address])
+  }
 
   return (
     <BitStarBgContainer py={3}>
-      <Box my={3} display="flex" justifyContent="center">
+      <Box my={3} display="flex" justifyContent="center" alignItems="center">
         <HangarTitle totalLoots={totalLoots} owner={owner} />
       </Box>
       <Box display="flex" justifyContent="center">
         <LootHangar loots={loots} />
       </Box>
+      {totalLoots > 0 && (
+        <PaginatorBox
+          display="flex"
+          justifyContent="space-around"
+          alignItems="center"
+          alignSelf="center"
+          my={3}
+        >
+          <button onClick={() => setPage(clamp(page - 1, 1, lastPage))}>{'<'}</button>
+          <div>
+            <span className="nes-text is-warning">page</span>
+            <input
+              type="number"
+              className="nes-input"
+              value={page.toString()}
+              onChange={(e) => {
+                handlePageChange
+              }}
+              style={{ textAlign: 'center', width: 80 }}
+            />
+            <span className="nes-text is-warning">of</span>
+            <span className="nes-text is-warning">{lastPage}</span>
+          </div>
+          <button onClick={() => setPage(clamp(page + 1, 1, lastPage))}>{'>'}</button>
+        </PaginatorBox>
+      )}
     </BitStarBgContainer>
   )
 })
