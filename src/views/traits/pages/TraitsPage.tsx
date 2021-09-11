@@ -21,7 +21,7 @@ const StyledIndexTD = styled.td`
 const StyledTD = styled.td`
   font-size: 12px!important;
 `
-export const Trait = observer(() => {
+export const Traits = observer(() => {
   const [page, setPage] = useState(1)
   const [filter, setFilter] = useState('')
   const [totalPage, setTotalPage] = useState(traits.length / 10)
@@ -65,7 +65,7 @@ export const Trait = observer(() => {
               loots.map((trait, index) => {
                 return (
                   <tr key={index}>
-                    <StyledIndexTD>{trait.tokenID + 1}</StyledIndexTD>
+                    <StyledIndexTD>{trait.tokenID}</StyledIndexTD>
                     <StyledTD>{trait.vessel_type}</StyledTD>
                     <StyledTD>{trait.class}</StyledTD>
                     <StyledTD>{trait.weapon}</StyledTD>

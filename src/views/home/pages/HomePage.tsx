@@ -111,8 +111,8 @@ export const HomePage = observer(() => {
       <Divider />
       <FooterBox display="flex" alignItems="center" justifyContent="space-between" mx="auto" my={2} p={2}>
         <span className="nes-text is-error">
-          <Link href="/trait" passHref>
-            <><i class="nes-icon star" /> Check Your Spaceship Traits </>
+          <Link href="/traits" passHref>
+            <a><i className="nes-icon star" /> Check Your Spaceship Traits</a>
           </Link>
         </span>
       </FooterBox>
@@ -147,7 +147,7 @@ export const HomePage = observer(() => {
       >
         <span className="nes-text" style={{ color: '#DDD' }}>
           Made with ❤️ by
-          <br style={{ marginTop: 4 }} />
+          <br />
           <a
             href="https://twitter.com/spaceloot_nft"
             target="_blank"
@@ -176,12 +176,8 @@ export const HomePage = observer(() => {
             @unnawut
           </a>
           <br />
-          <a href="https://github.com/nostalgic-css/NES.css/" target="_blank" className="nes-text is-primary" rel="noreferrer">
-            <Box display="flex" justifyContent="center" alignItems="center">
-              <i class="nes-jp-logo" />
-              Special Thank to nes.css for Awesome CSS
-            </Box>
-          </a>
+          {'Special thanks to'} <a href="https://github.com/nostalgic-css/NES.css/" target="_blank" className="nes-text is-primary" rel="noreferrer">NES.css</a>
+          {' for awesome CSS'} <i className="nes-jp-logo is-small" style={{ transform: 'scale(0.5)', top: '10px', left: '-20px' }} />
         </span>
       </FooterBox>
     </BitStarBgContainer>
