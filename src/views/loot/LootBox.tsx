@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Box, BoxProps } from '@material-ui/core'
 import { Loot } from 'interfaces/loot.interface'
@@ -24,27 +24,50 @@ const LootProperty = (props: any) => {
 
 const LootTransfer = (props: {token_id:string}) => {
 
-  const [recipient, setRecipient] = useState<Loot>()
+  const [recipient, setRecipient] = useState<string>()
+
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value !== '') {
+      setRecipient(e.target.value)
+    }
+  }
+
   const handleTransfer = async () => {
-    //setIsClaiming(true)
-    await spaceLootService.transfer('test_addr', props.token_id)
-    //setIsClaiming(false)
+    if(recipient === '')
+      return
+    else
+      await spaceLootService.transfer(recipient, props.token_id)
+  }
+
+  const handleTransferDialog = () => {
+    document.getElementById('dialog-default').showModal()
+  }
+
+  const handleCloseDialog = () => {
+    setRecipient('')
   }
 
   return (
     <Box marginRight="20px">
-      <div className="nes-field">
-        <input
-          type="number"
-          id="name_field"
-          className="nes-input"
-          value=""
-          style={{ textAlign: 'right' }}
-        />
-      </div>
-      <button type="button" className="nes-btn is-success" onClick={handleTransfer}>
+      <button type="button" className="nes-btn is-success" onClick={handleTransferDialog}>
         Transfer Loot!
       </button>
+      <dialog className="nes-dialog" id="dialog-default" onClose={handleCloseDialog}>
+        <form method="dialog">
+          <p className="title">Transfer Address</p>
+          <input
+            type="text"
+            id="address"
+            className="nes-input"
+            value={recipient}
+            onChange={handleOnChange}
+          />
+          <menu className="dialog-menu">
+            <button className="nes-btn">Cancel</button>
+            <button className="nes-btn is-primary" onClick={handleTransfer}>Confirm</button>
+          </menu>
+        </form>
+      </dialog>
     </Box>
   )
 }
