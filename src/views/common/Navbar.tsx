@@ -35,14 +35,13 @@ const StyledAppBar = styled(AppBar)<{ theme?: Theme }>`
   z-index: 1;
   &:before {
     border: inherit;
-    border-width: 0 0.125em;
+    border-top: 0.125em;
+    border-bottom: 0.125em;
     content: '';
     height: 100%;
-    left: -0.125em;
     pointer-events: none;
     position: absolute;
     top: 0;
-    right: -0.125em;
     z-index: -1;
   }
 `
