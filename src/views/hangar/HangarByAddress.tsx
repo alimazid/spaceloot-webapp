@@ -9,11 +9,48 @@ import { useAsyncMemo } from 'hooks/useAsyncMemo'
 import { walletStore } from 'stores/walletStore'
 import { maskWalletAddress } from 'utils/wallet.utils'
 
-type Props = {
+type TitleProps = {
+  totalLoots?: number
   owner: string
 }
 
-export const HangarByAddress = observer(({ owner }: Props) => {
+const HangarTitle = observer(({ totalLoots, owner }: TitleProps) => {
+  const isOwned = useMemo(() => {
+    return walletStore.address === owner
+  }, [owner, walletStore.address])
+
+  const titleText = useMemo(() => {
+    const awesome = isOwned ? 'Awesome! ' : ' '
+    if (totalLoots === 0) {
+      return `No ships in the hangar`
+    } else if (totalLoots === 1) {
+      return `${awesome}There is a ship in`
+    } else {
+      return `${awesome}There are ${totalLoots} ships in`
+    }
+  }, [totalLoots, isOwned])
+
+  const ownerText = useMemo(() => {
+    return isOwned ? 'your hangar' : `${maskWalletAddress(owner)}'s hanger`
+  }, [isOwned])
+
+  return (
+    <Typography variant="h3" className="nes-text is-primary">
+      {titleText}{' '}
+      <span>
+        <a href={`/captain/${owner}/hangar`} target="_blank" className="nes-text is-warning">
+          {ownerText}
+        </a>
+      </span>
+    </Typography>
+  )
+})
+
+type HangarProps = {
+  owner: string
+}
+
+export const HangarByAddress = observer(({ owner }: HangarProps) => {
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
 
@@ -50,9 +87,7 @@ export const HangarByAddress = observer(({ owner }: Props) => {
   return (
     <BitStarBgContainer py={3}>
       <Box my={3} display="flex" justifyContent="center">
-        <Typography variant="h3" className="nes-text is-primary">
-          {titleText}
-        </Typography>
+        <HangarTitle totalLoots={totalLoots} owner={owner} />
       </Box>
       <Box display="flex" justifyContent="center">
         <LootHangar loots={loots} />

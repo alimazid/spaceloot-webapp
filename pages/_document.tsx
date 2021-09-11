@@ -28,7 +28,7 @@ class CustomDocument extends Document {
             property="og:description"
             content="A Starship-themed on-chain randomized loot on Terra."
           />
-          <meta property="og:image" content={'https://spaceloot.xyz/static/bg.jpeg'} />
+          <meta property="og:image" content="https://spaceloot.xyz/static/bg.jpeg" />
         </Head>
         <body>
           <Main />

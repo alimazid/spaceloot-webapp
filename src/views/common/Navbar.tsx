@@ -120,7 +120,7 @@ export const Navbar = observer((props: Props) => {
                     className="nes-btn is-secondary"
                     style={{ marginRight: 16 }}
                   >
-                    Your SpaceLoots!
+                    Your Hangar!
                   </button>
                 </Link>
               )}
