@@ -8,6 +8,8 @@ import { networkService } from './networkService'
 import { walletService } from './walletService'
 import BigNumber from 'bignumber.js'
 import { Loot } from 'interfaces/loot.interface'
+import { defaultPaginationOptions, PaginationOptions } from 'interfaces/pagination.interface'
+import { paginate } from 'utils/pagination.utils'
 
 class SpaceLootService {
   claim = async (lootId: string) => {
@@ -44,21 +46,36 @@ class SpaceLootService {
     return response
   }
 
-  queryMyLoots = async (): Promise<Loot[]> => {
+  queryTokenIdsByAddress = async (owner: string): Promise<string[]> => {
     const { nft } = addresses[networkStore.name]
-    const response: { tokens: string[] } = await networkStore.terra.wasm.contractQuery(nft, {
+    const { tokens }: { tokens: string[] } = await networkStore.terra.wasm.contractQuery(nft, {
       tokens: {
-        owner: walletStore.address,
+        owner,
       },
     })
+    return tokens
+  }
+
+  queryLootsByAddress = async (
+    owner: string,
+    options: {} & PaginationOptions = defaultPaginationOptions
+  ): Promise<Loot[]> => {
+    const tokens = await this.queryTokenIdsByAddress(owner)
+    const filteredTokenIds = paginate(tokens, options)
 
     const loots: Loot[] = await Promise.all(
-      response.tokens.map(async (tokenId) => {
+      filteredTokenIds.map(async (tokenId) => {
         return this.queryLootset(tokenId)
       })
     )
 
     return loots
+  }
+
+  queryMyLoots = async (
+    options: {} & PaginationOptions = defaultPaginationOptions
+  ): Promise<Loot[]> => {
+    return this.queryLootsByAddress(walletStore.address, options)
   }
 
   queryLatestBlock = async () => {

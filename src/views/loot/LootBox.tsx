@@ -6,9 +6,6 @@ import { networkStore } from 'stores/networkStore'
 import { walletService } from 'services/walletService'
 import { Skeleton } from '@material-ui/lab'
 import Link from 'next/link'
-type Props = {
-  loot?: Loot
-}
 
 const LootProperty = (props: any) => {
   return (
@@ -30,7 +27,9 @@ const LootOwner = observer((props: { owner: string }) => {
       Owner:{' '}
       {props.owner != '' ? (
         <Link href={url} passHref>
-          {props.owner == walletService.getStoredAddress() ? 'Captain on the Bridge! The ship is yours.' : props.owner}
+          {props.owner == walletService.getStoredAddress()
+            ? 'Captain on the Bridge! The ship is yours.'
+            : props.owner}
         </Link>
       ) : (
         '-'
@@ -54,7 +53,12 @@ const RectSkeleton = (props: any) => {
   )
 }
 
-export const LootBox = observer(({ loot, ...props }: Props & BoxProps) => {
+type Props = {
+  loot?: Loot
+  hideOwner?: boolean | string
+}
+
+export const LootBox = observer(({ loot, hideOwner, ...props }: Props & BoxProps) => {
   if (!loot) {
     return (
       <Box className="nes-container is-dark with-title" {...props}>
@@ -107,7 +111,7 @@ export const LootBox = observer(({ loot, ...props }: Props & BoxProps) => {
             <span className="nes-text is-primary">🎁 Extra:</span> {loot.extra}
           </LootProperty>
         </ul>
-        <LootOwner owner={loot.owner} />
+        {!hideOwner && <LootOwner owner={loot.owner} />}
       </div>
     </Box>
   )
