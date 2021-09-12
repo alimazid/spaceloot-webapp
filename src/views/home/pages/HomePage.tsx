@@ -143,7 +143,7 @@ export const HomePage = observer(() => {
           </a>
           {'  '}
           <a
-            href="https://discord.gg/Ud5pgmAt"
+            href="https://discord.gg/ecKVbrBp4U"
             target="_blank"
             className="nes-text is-warning" rel="noreferrer"
           >
