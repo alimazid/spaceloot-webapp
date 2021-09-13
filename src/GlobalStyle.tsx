@@ -11,7 +11,27 @@ const styles = css`
     margin-bottom: .5rem
   }
 
-
+  .nes-dialog {
+    z-index: 2;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    width: fit-content;
+    height: fit-content;
+    color: black;
+    margin: auto;
+    border-width: initial;
+    border-style: solid;
+    border-color: initial;
+    border-image: initial;
+    padding: 1em;
+    background: white;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+  }
 
   body {
     padding: 0;
