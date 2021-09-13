@@ -1,9 +1,12 @@
+import { ChangeEvent, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Box, BoxProps } from '@material-ui/core'
 import { Loot } from 'interfaces/loot.interface'
 import { networks } from 'constants/networks'
 import { networkStore } from 'stores/networkStore'
 import { walletService } from 'services/walletService'
+import { spaceLootService } from 'services/spaceLootService'
+import { maskWalletAddress } from 'utils/wallet.utils'
 import { Skeleton } from '@material-ui/lab'
 import Link from 'next/link'
 
@@ -20,6 +23,68 @@ const LootProperty = (props: any) => {
   )
 }
 
+const LootTransfer = (props: {token_id:string}) => {
+
+  const [recipient, setRecipient] = useState<string>('')
+  const [isError, setIsError] = useState<boolean>(false)
+
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value !== '') {
+      setRecipient(e.target.value)
+      console.log(recipient)
+      console.log(walletService.validateAddress(recipient))
+      if(walletService.validateAddress(e.target.value)) {
+        setIsError(false)
+      } else {
+        setIsError(true)
+      }
+    }
+  }
+
+  const handleTransfer = async () => {
+    if(walletService.validateAddress(recipient)) {
+      await spaceLootService.transfer(recipient, props.token_id)
+    }
+  }
+
+  const handleTransferDialog = () => {
+    setRecipient('')
+    setIsError(false)
+    const dialog:any = document.getElementById('dialog-default')
+    if(dialog)
+      dialog.showModal()
+  }
+
+  const handleCloseDialog = () => {
+    setRecipient('')
+  }
+
+  return (
+    <Box marginRight="20px">
+      <button type="button" className="nes-btn is-success" onClick={handleTransferDialog}>
+        Transfer Loot!
+      </button>
+      <dialog className="nes-dialog" id="dialog-default">
+        <form method="dialog" style={{ minWidth: "680px"}}>
+          <p className="title">Transfer Address</p>
+          <input
+            type="text"
+            id="address"
+            className="nes-input"
+            value={recipient}
+            onChange={handleOnChange}
+          />
+          {isError && <span className="nes-text is-error">invalid address</span>}
+          <menu className="dialog-menu">
+            <button className="nes-btn" onClick={handleCloseDialog}>Cancel</button>
+            <button className={`nes-btn ${!isError? "is-primary":"is-disabled"}`} disabled={isError} onClick={handleTransfer}>Confirm</button>
+          </menu>
+        </form>
+      </dialog>
+    </Box>
+  )
+}
+
 const LootOwner = observer((props: { owner: string }) => {
   const url = networks[networkStore.name].finder + '/address/' + props.owner
   return (
@@ -29,7 +94,7 @@ const LootOwner = observer((props: { owner: string }) => {
         <Link href={url} passHref>
           {props.owner == walletService.getStoredAddress()
             ? 'Captain on the Bridge! The ship is yours.'
-            : props.owner}
+            : maskWalletAddress(props.owner)}
         </Link>
       ) : (
         '-'
@@ -56,9 +121,10 @@ const RectSkeleton = (props: any) => {
 type Props = {
   loot?: Loot
   hideOwner?: boolean | string
+  transferable?: boolean | string
 }
 
-export const LootBox = observer(({ loot, hideOwner, ...props }: Props & BoxProps) => {
+export const LootBox = observer(({ loot, hideOwner, transferable, ...props }: Props & BoxProps) => {
   if (!loot) {
     return (
       <Box className="nes-container is-dark with-title" {...props}>
@@ -112,6 +178,7 @@ export const LootBox = observer(({ loot, hideOwner, ...props }: Props & BoxProps
           </LootProperty>
         </ul>
         {!hideOwner && <LootOwner owner={loot.owner} />}
+        {transferable && <LootTransfer token_id={loot.token_id.toString()} />}
       </div>
     </Box>
   )

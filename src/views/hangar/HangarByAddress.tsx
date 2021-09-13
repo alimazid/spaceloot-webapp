@@ -65,6 +65,13 @@ export const HangarByAddress = observer(({ owner }: HangarProps) => {
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(5)
 
+  const [transferable, setTransferable] = useState(false)
+
+  const updateTransferable = useMemo(() => {
+    const isOwned = walletStore.address === owner
+    setTransferable(isOwned)
+  }, [walletStore.address])
+
   const allTokenIds = useAsyncMemo<string[]>(
     async () => {
       return spaceLootService.queryTokenIdsByAddress(owner)
@@ -105,7 +112,7 @@ export const HangarByAddress = observer(({ owner }: HangarProps) => {
         <HangarTitle totalLoots={totalLoots} owner={owner} />
       </Box>
       <Box display="flex" justifyContent="center">
-        <LootHangar loots={loots} />
+        <LootHangar loots={loots} transferable={transferable} />
       </Box>
       {totalLoots > 0 && (
         <PaginatorBox

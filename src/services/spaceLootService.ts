@@ -36,6 +36,31 @@ class SpaceLootService {
     return response
   }
 
+  transfer = async(recipient: string, lootId: string) => {
+    if (!walletStore.isConnected) return
+
+    const sender = walletStore.address
+    const { nft } = addresses[networkStore.name]
+
+    const response = await walletService.post(
+      {
+        msgs: [
+          new MsgExecuteContract(sender, nft, {
+            transfer_nft: {
+              recipient: recipient,
+              token_id: lootId,
+            },
+          }),
+        ],
+      },
+      {
+        gas: gas[networkStore.name].methods.transfer.gasLimit,
+        amount: networkService.calculateTxFee('transfer').toString(),
+      }
+    )
+    return response
+  }
+
   queryLootBalance = async (owner: string): Promise<number> => {
     const { nft } = addresses[networkStore.name]
     const { count } = await networkStore.terra.wasm.contractQuery(nft, {
