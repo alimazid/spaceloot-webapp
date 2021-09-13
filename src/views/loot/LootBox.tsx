@@ -23,8 +23,7 @@ const LootProperty = (props: any) => {
   )
 }
 
-const LootTransfer = (props: {token_id:string}) => {
-
+const LootTransfer = (props: { token_id: string }) => {
   const [recipient, setRecipient] = useState<string>('')
   const [isError, setIsError] = useState<boolean>(false)
 
@@ -33,7 +32,7 @@ const LootTransfer = (props: {token_id:string}) => {
       setRecipient(e.target.value)
       console.log(recipient)
       console.log(walletService.validateAddress(recipient))
-      if(walletService.validateAddress(e.target.value)) {
+      if (walletService.validateAddress(e.target.value)) {
         setIsError(false)
       } else {
         setIsError(true)
@@ -42,7 +41,7 @@ const LootTransfer = (props: {token_id:string}) => {
   }
 
   const handleTransfer = async () => {
-    if(walletService.validateAddress(recipient)) {
+    if (walletService.validateAddress(recipient)) {
       await spaceLootService.transfer(recipient, props.token_id)
     }
   }
@@ -50,9 +49,8 @@ const LootTransfer = (props: {token_id:string}) => {
   const handleTransferDialog = () => {
     setRecipient('')
     setIsError(false)
-    const dialog:any = document.getElementById('dialog-default')
-    if(dialog)
-      dialog.showModal()
+    const dialog: any = document.getElementById('dialog-default')
+    if (dialog) dialog.showModal()
   }
 
   const handleCloseDialog = () => {
@@ -65,7 +63,7 @@ const LootTransfer = (props: {token_id:string}) => {
         Transfer Loot!
       </button>
       <dialog className="nes-dialog" id="dialog-default">
-        <form method="dialog" style={{ minWidth: "680px"}}>
+        <form method="dialog" style={{ minWidth: '680px' }}>
           <p className="title">Transfer Address</p>
           <input
             type="text"
@@ -76,8 +74,16 @@ const LootTransfer = (props: {token_id:string}) => {
           />
           {isError && <span className="nes-text is-error">invalid address</span>}
           <menu className="dialog-menu">
-            <button className="nes-btn" onClick={handleCloseDialog}>Cancel</button>
-            <button className={`nes-btn ${!isError? "is-primary":"is-disabled"}`} disabled={isError} onClick={handleTransfer}>Confirm</button>
+            <button className="nes-btn" onClick={handleCloseDialog}>
+              Cancel
+            </button>
+            <button
+              className={`nes-btn ${!isError ? 'is-primary' : 'is-disabled'}`}
+              disabled={isError}
+              onClick={handleTransfer}
+            >
+              Confirm
+            </button>
           </menu>
         </form>
       </dialog>
@@ -178,7 +184,7 @@ export const LootBox = observer(({ loot, hideOwner, transferable, ...props }: Pr
           </LootProperty>
         </ul>
         {!hideOwner && <LootOwner owner={loot.owner} />}
-        {transferable && <LootTransfer token_id={loot.token_id.toString()} />}
+        {/*{transferable && <LootTransfer token_id={loot.token_id.toString()} />}*/}
       </div>
     </Box>
   )
