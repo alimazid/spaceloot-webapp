@@ -24,7 +24,7 @@ const LootProperty = (props: any) => {
 
 const LootTransfer = (props: {token_id:string}) => {
 
-  const [recipient, setRecipient] = useState<string>()
+  const [recipient, setRecipient] = useState<string>('')
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== '') {
@@ -39,7 +39,9 @@ const LootTransfer = (props: {token_id:string}) => {
   }
 
   const handleTransferDialog = () => {
-    document.getElementById('dialog-default').showModal()
+    const dialog:any = document.getElementById('dialog-default')
+    if(dialog)
+      dialog.showModal()
   }
 
   const handleCloseDialog = () => {
@@ -51,7 +53,7 @@ const LootTransfer = (props: {token_id:string}) => {
       <button type="button" className="nes-btn is-success" onClick={handleTransferDialog}>
         Transfer Loot!
       </button>
-      <dialog className="nes-dialog" id="dialog-default" onClose={handleCloseDialog}>
+      <dialog className="nes-dialog" id="dialog-default">
         <form method="dialog">
           <p className="title">Transfer Address</p>
           <input
@@ -62,7 +64,7 @@ const LootTransfer = (props: {token_id:string}) => {
             onChange={handleOnChange}
           />
           <menu className="dialog-menu">
-            <button className="nes-btn">Cancel</button>
+            <button className="nes-btn" onClick={handleCloseDialog}>Cancel</button>
             <button className="nes-btn is-primary" onClick={handleTransfer}>Confirm</button>
           </menu>
         </form>
