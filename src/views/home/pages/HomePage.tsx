@@ -188,9 +188,13 @@ export const HomePage = observer(() => {
           <a href="https://twitter.com/pchayvimol" target="_blank" className="nes-text is-primary" rel="noreferrer">
             @pchayvimol
           </a>
+          {','}
+          <a href="https://twitter.com/mr_rogers0x" target="_blank" className="nes-text is-primary" rel="noreferrer">
+            @mr_rogers0x
+          </a>
           {', and '}
-          <a href="https://twitter.com/unnawut" target="_blank" className="nes-text is-primary" rel="noreferrer">
-            @unnawut
+          <a href="https://twitter.com/Lunatics_cc" target="_blank" className="nes-text is-primary" rel="noreferrer">
+            @Lunatics_cc
           </a>
           <br />
           {'Special thanks to'} <a href="https://github.com/nostalgic-css/NES.css/" target="_blank" className="nes-text is-primary" rel="noreferrer">NES.css</a>
