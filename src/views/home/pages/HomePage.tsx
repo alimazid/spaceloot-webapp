@@ -141,6 +141,14 @@ export const HomePage = observer(() => {
           >
             Telegram
           </a>
+          {'  '}
+          <a
+            href="https://discord.gg/ch2EmcbSdf"
+            target="_blank"
+            className="nes-text is-warning" rel="noreferrer"
+          >
+            Discord
+          </a>
         </span>
       </FooterBox>
       <FooterBox
