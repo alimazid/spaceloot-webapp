@@ -34,16 +34,16 @@ const HangarTitle = observer(({ totalLoots, owner }: TitleProps) => {
   }, [totalLoots, isOwned])
 
   const ownerText = useMemo(() => {
-    return isOwned ? 'your hangar' : `${maskWalletAddress(owner)}'s hanger`
-  }, [isOwned])
+    return isOwned ? 'your hangar' : `${maskWalletAddress(owner)}'s hangar`
+  }, [isOwned, owner])
 
   return (
     <Typography variant="h3" className="nes-text is-primary">
       {titleText}{' '}
       <span>
-        <a href={`/captain/${owner}/hangar`} target="_blank" className="nes-text is-warning">
-          {ownerText}
-        </a>
+        <Link href={`/captain/${owner}/hangar`}>
+          <a target={'_blank'} className="nes-text is-warning">{ownerText}</a>
+        </Link>
       </span>
     </Typography>
   )
@@ -111,6 +111,7 @@ export const HangarByAddress = observer(({ owner }: HangarProps) => {
     <BitStarBgContainer py={3}>
       <Box my={3} display="flex" justifyContent="center" alignItems="center">
         <HangarTitle totalLoots={totalLoots} owner={owner} />
+
       </Box>
       <Box display="flex" justifyContent="center">
         <LootHangar
