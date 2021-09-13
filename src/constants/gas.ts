@@ -1,4 +1,4 @@
-export type SpaceLootMethods = 'claim'
+export type SpaceLootMethods = 'claim' | 'transfer'
 
 export const gas: {
   [network: string]: {
@@ -12,6 +12,7 @@ export const gas: {
     defaultGasFee: 100000,
     methods: {
       claim: { gasLimit: 300000, gasFee: 200000 },
+      transfer: { gasLimit: 300000, gasFee: 200000 }
     },
   },
   testnet: {
@@ -19,6 +20,7 @@ export const gas: {
     defaultGasFee: 100000,
     methods: {
       claim: { gasLimit: 1500000, gasFee: 300000 },
+      transfer: { gasLimit: 1500000, gasFee: 300000 }
     },
   },
 }
