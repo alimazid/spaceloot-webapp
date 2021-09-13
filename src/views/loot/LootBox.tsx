@@ -25,20 +25,30 @@ const LootProperty = (props: any) => {
 const LootTransfer = (props: {token_id:string}) => {
 
   const [recipient, setRecipient] = useState<string>('')
+  const [isError, setIsError] = useState<boolean>(false)
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== '') {
       setRecipient(e.target.value)
+      console.log(recipient)
+      console.log(walletService.validateAddress(recipient))
+      if(walletService.validateAddress(e.target.value)) {
+        setIsError(false)
+      } else {
+        setIsError(true)
+      }
     }
   }
 
   const handleTransfer = async () => {
     if(walletService.validateAddress(recipient)) {
       await spaceLootService.transfer(recipient, props.token_id)
-    } 
+    }
   }
 
   const handleTransferDialog = () => {
+    setRecipient('')
+    setIsError(false)
     const dialog:any = document.getElementById('dialog-default')
     if(dialog)
       dialog.showModal()
@@ -54,7 +64,7 @@ const LootTransfer = (props: {token_id:string}) => {
         Transfer Loot!
       </button>
       <dialog className="nes-dialog" id="dialog-default">
-        <form method="dialog">
+        <form method="dialog" style={{ minWidth: "680px"}}>
           <p className="title">Transfer Address</p>
           <input
             type="text"
@@ -63,9 +73,10 @@ const LootTransfer = (props: {token_id:string}) => {
             value={recipient}
             onChange={handleOnChange}
           />
+          {isError && <span className="nes-text is-error">invalid address</span>}
           <menu className="dialog-menu">
             <button className="nes-btn" onClick={handleCloseDialog}>Cancel</button>
-            <button className="nes-btn is-primary" onClick={handleTransfer}>Confirm</button>
+            <button className={`nes-btn ${!isError? "is-primary":"is-disabled"}`} disabled={isError} onClick={handleTransfer}>Confirm</button>
           </menu>
         </form>
       </dialog>
