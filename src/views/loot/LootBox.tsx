@@ -6,6 +6,7 @@ import { networks } from 'constants/networks'
 import { networkStore } from 'stores/networkStore'
 import { walletService } from 'services/walletService'
 import { spaceLootService } from 'services/spaceLootService'
+import { maskWalletAddress } from 'utils/wallet.utils'
 import { Skeleton } from '@material-ui/lab'
 import Link from 'next/link'
 
@@ -93,7 +94,7 @@ const LootOwner = observer((props: { owner: string }) => {
         <Link href={url} passHref>
           {props.owner == walletService.getStoredAddress()
             ? 'Captain on the Bridge! The ship is yours.'
-            : props.owner}
+            : maskWalletAddress(props.owner)}
         </Link>
       ) : (
         '-'
