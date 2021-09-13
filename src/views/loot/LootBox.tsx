@@ -33,10 +33,9 @@ const LootTransfer = (props: {token_id:string}) => {
   }
 
   const handleTransfer = async () => {
-    if(recipient === '')
-      return
-    else
+    if(walletService.validateAddress(recipient)) {
       await spaceLootService.transfer(recipient, props.token_id)
+    } 
   }
 
   const handleTransferDialog = () => {
