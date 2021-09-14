@@ -1,14 +1,14 @@
 import { Global, css } from '@emotion/react'
 
 const styles = css`
-  .pagination{
+  .pagination {
     display: flex;
     align-items: center;
     padding-left: 0px;
-    list-style: none!important;
-    border-radius: .25rem;
-    margin-top: .5rem;
-    margin-bottom: .5rem
+    list-style: none !important;
+    border-radius: 0.25rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .nes-dialog {
@@ -30,7 +30,6 @@ const styles = css`
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-}
   }
 
   body {
@@ -58,6 +57,13 @@ const styles = css`
     -webkit-overflow-scrolling: touch;
   }
   .Toastify {
+    .Toastify__toast {
+      cursor: default;
+      margin: 3.5rem 0 0;
+      border-radius: 0;
+      border: 4px solid black;
+      box-shadow: 0 0 8px 1px white;
+    }
     @media only screen and (max-width: 480px) {
       .Toastify__toast-container {
         margin: auto;

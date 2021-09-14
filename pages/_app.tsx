@@ -1,3 +1,5 @@
+import 'react-toastify/dist/ReactToastify.min.css'
+
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { GlobalStyle } from 'GlobalStyle'
@@ -9,6 +11,7 @@ import { useEffect } from 'react'
 import BigNumber from 'bignumber.js'
 import { useSetup } from 'hooks/useSetup'
 import ReactGA from 'react-ga'
+import { ToastContainer, Zoom } from 'react-toastify'
 BigNumber.config({ EXPONENTIAL_AT: 78 })
 
 const App = ({ Component, pageProps }: AppProps) => {
@@ -33,9 +36,24 @@ const App = ({ Component, pageProps }: AppProps) => {
       <StylesProvider injectFirst>
         <MuiThemeProvider theme={theme}>
           <EmotionThemeProvider theme={theme}>
-            {ready && <Navbar>
-              <Component {...pageProps} />
-            </Navbar>}
+            {ready && (
+              <>
+                <ToastContainer
+                  position="top-right"
+                  transition={Zoom}
+                  autoClose={3000}
+                  hideProgressBar={true}
+                  pauseOnFocusLoss={true}
+                  pauseOnHover={true}
+                  draggable={true}
+                  closeButton={false}
+                  icon={false}
+                />
+                <Navbar>
+                  <Component {...pageProps} />
+                </Navbar>
+              </>
+            )}
           </EmotionThemeProvider>
         </MuiThemeProvider>
       </StylesProvider>

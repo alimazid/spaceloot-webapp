@@ -9,6 +9,10 @@ import { spaceLootService } from 'services/spaceLootService'
 import { useDebounce } from 'hooks/useDebounce'
 import { Loot } from 'interfaces/loot.interface'
 import styled from '@emotion/styled'
+import { networkService } from 'services/networkService'
+import { toast } from 'react-toastify'
+import { networks } from 'constants/networks'
+import { networkStore } from 'stores/networkStore'
 
 const maxTokenId = 8000
 
@@ -45,6 +49,43 @@ export const HomePage = observer(() => {
     setLoot(response)
   }, [debouncedTokenId])
 
+  const txPollingRef = useRef<NodeJS.Timer | null>(null)
+  const pollClaimTx = useCallback((tokenId: string, txHash: string) => {
+    const intervalId = setInterval(async () => {
+      try {
+        const url = `${networks[networkStore.name].finder}/tx/${txHash}`
+        const txInfo = await networkService.queryTxInfo(txHash)
+        if (txInfo.logs) {
+          // Tx success
+          toast(() => (
+            <Box display="flex" flexDirection="column">
+              <Typography className="nes-text is-success">#{tokenId} claimed</Typography>
+              <a className="nes-text is-primary" href={url} target="_blank">
+                <Typography variant="subtitle2">View on finder</Typography>
+              </a>
+            </Box>
+          ))
+        } else {
+          // Tx revert
+          toast(() => (
+            <Box display="flex" flexDirection="column">
+              <Typography className="nes-text is-error">claiming #{tokenId} reverted</Typography>
+              <a className="nes-text is-primary" href={url} target="_blank">
+                <Typography variant="subtitle2">View on finder</Typography>
+              </a>
+            </Box>
+          ))
+        }
+        clearInterval(intervalId)
+      } catch (error) {
+        if (txPollingRef.current !== intervalId) {
+          clearInterval(intervalId)
+        }
+      }
+    }, 1500)
+    txPollingRef.current = intervalId
+  }, [])
+
   useEffect(() => {
     if (fetchLootTimer.current) {
       clearInterval(fetchLootTimer.current)
@@ -61,7 +102,10 @@ export const HomePage = observer(() => {
 
   const handleClaim = async () => {
     setIsClaiming(true)
-    await spaceLootService.claim(tokenId.toString())
+    const response = await spaceLootService.claim(tokenId.toString())
+    if (response?.result?.txhash) {
+      pollClaimTx(tokenId.toString(), response.result.txhash)
+    }
     setIsClaiming(false)
   }
 
@@ -116,10 +160,19 @@ export const HomePage = observer(() => {
         </button>
       </Box>
       <Divider />
-      <FooterBox display="flex" alignItems="center" justifyContent="space-between" mx="auto" my={2} p={2}>
+      <FooterBox
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        mx="auto"
+        my={2}
+        p={2}
+      >
         <span className="nes-text is-error">
           <Link href="/traits" passHref>
-            <a><i className="nes-icon star" /> Check Your Spaceship Traits</a>
+            <a>
+              <i className="nes-icon star" /> Check Your Spaceship Traits
+            </a>
           </Link>
         </span>
       </FooterBox>
@@ -129,7 +182,8 @@ export const HomePage = observer(() => {
           <a
             href="https://twitter.com/spaceloot_nft"
             target="_blank"
-            className="nes-text is-warning" rel="noreferrer"
+            className="nes-text is-warning"
+            rel="noreferrer"
           >
             Twitter
           </a>
@@ -137,7 +191,8 @@ export const HomePage = observer(() => {
           <a
             href="https://t.me/joinchat/VJS63IYLV4oyYTE9"
             target="_blank"
-            className="nes-text is-warning" rel="noreferrer"
+            className="nes-text is-warning"
+            rel="noreferrer"
           >
             Telegram
           </a>
@@ -145,7 +200,8 @@ export const HomePage = observer(() => {
           <a
             href="https://discord.gg/ch2EmcbSdf"
             target="_blank"
-            className="nes-text is-warning" rel="noreferrer"
+            className="nes-text is-warning"
+            rel="noreferrer"
           >
             Discord
           </a>
@@ -168,41 +224,89 @@ export const HomePage = observer(() => {
           <a
             href="https://twitter.com/spaceloot_nft"
             target="_blank"
-            className="nes-text is-primary" rel="noreferrer"
+            className="nes-text is-primary"
+            rel="noreferrer"
           >
             @apemon_chan
           </a>
           {', '}
-          <a href="https://twitter.com/supasonk_" target="_blank" className="nes-text is-primary" rel="noreferrer">
+          <a
+            href="https://twitter.com/supasonk_"
+            target="_blank"
+            className="nes-text is-primary"
+            rel="noreferrer"
+          >
             @supasonk_
           </a>
           {', '}
-          <a href="https://twitter.com/kaoths" target="_blank" className="nes-text is-primary" rel="noreferrer">
+          <a
+            href="https://twitter.com/kaoths"
+            target="_blank"
+            className="nes-text is-primary"
+            rel="noreferrer"
+          >
             @kaoths
           </a>
           {', '}
-          <a href="https://twitter.com/0xWolfgang_" target="_blank" className="nes-text is-primary" rel="noreferrer">
+          <a
+            href="https://twitter.com/0xWolfgang_"
+            target="_blank"
+            className="nes-text is-primary"
+            rel="noreferrer"
+          >
             @0xWolfgang_
           </a>
           {', '}
-          <a href="https://twitter.com/pchayvimol" target="_blank" className="nes-text is-primary" rel="noreferrer">
+          <a
+            href="https://twitter.com/pchayvimol"
+            target="_blank"
+            className="nes-text is-primary"
+            rel="noreferrer"
+          >
             @pchayvimol
           </a>
           {','}
-          <a href="https://twitter.com/mr_rogers0x" target="_blank" className="nes-text is-primary" rel="noreferrer">
+          <a
+            href="https://twitter.com/mr_rogers0x"
+            target="_blank"
+            className="nes-text is-primary"
+            rel="noreferrer"
+          >
             @mr_rogers0x
           </a>
           {','}
-          <a href="https://twitter.com/Lunatics_cc" target="_blank" className="nes-text is-primary" rel="noreferrer">
+          <a
+            href="https://twitter.com/Lunatics_cc"
+            target="_blank"
+            className="nes-text is-primary"
+            rel="noreferrer"
+          >
             @Lunatics_cc
           </a>
           {', and'}
-          <a href="https://twitter.com/france_astin" target="_blank" className="nes-text is-primary" rel="noreferrer">
+          <a
+            href="https://twitter.com/france_astin"
+            target="_blank"
+            className="nes-text is-primary"
+            rel="noreferrer"
+          >
             @france_astin
           </a>
           <br />
-          {'Special thanks to'} <a href="https://github.com/nostalgic-css/NES.css/" target="_blank" className="nes-text is-primary" rel="noreferrer">NES.css</a>
-          {' for awesome CSS'} <i className="nes-jp-logo is-small" style={{ transform: 'scale(0.5)', top: '7px', left: '-20px' }} />
+          {'Special thanks to'}{' '}
+          <a
+            href="https://github.com/nostalgic-css/NES.css/"
+            target="_blank"
+            className="nes-text is-primary"
+            rel="noreferrer"
+          >
+            NES.css
+          </a>
+          {' for awesome CSS'}{' '}
+          <i
+            className="nes-jp-logo is-small"
+            style={{ transform: 'scale(0.5)', top: '7px', left: '-20px' }}
+          />
         </span>
       </FooterBox>
     </BitStarBgContainer>
