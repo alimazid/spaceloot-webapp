@@ -230,6 +230,7 @@ export const HomePage = observer(() => {
           >
             @mr_rogers0x
           </a>
+<<<<<<< HEAD
           {', and '}
           <a
             href="https://twitter.com/Lunatics_cc"
@@ -237,7 +238,15 @@ export const HomePage = observer(() => {
             className="nes-text is-primary"
             rel="noreferrer"
           >
+=======
+          {','}
+          <a href="https://twitter.com/Lunatics_cc" target="_blank" className="nes-text is-primary" rel="noreferrer">
+>>>>>>> origin/main
             @Lunatics_cc
+          </a>
+          {', and'}
+          <a href="https://twitter.com/france_astin" target="_blank" className="nes-text is-primary" rel="noreferrer">
+            @france_astin
           </a>
           <br />
           {'Special thanks to'}{' '}
