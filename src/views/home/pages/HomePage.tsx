@@ -76,8 +76,10 @@ export const HomePage = observer(() => {
             </Box>
           ))
         }
+        setIsClaiming(false)
         clearInterval(intervalId)
       } catch (error) {
+        setIsClaiming(false)
         if (txPollingRef.current !== intervalId) {
           clearInterval(intervalId)
         }
@@ -106,7 +108,6 @@ export const HomePage = observer(() => {
     if (response?.result?.txhash) {
       pollClaimTx(tokenId.toString(), response.result.txhash)
     }
-    setIsClaiming(false)
   }
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
