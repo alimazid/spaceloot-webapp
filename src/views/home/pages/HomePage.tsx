@@ -185,7 +185,7 @@ export const HomePage = observer(() => {
           >
             @apemon_chan
           </a>
-          {', '}
+          {','}
           <a
             href="https://twitter.com/supasonk_"
             target="_blank"
@@ -194,7 +194,7 @@ export const HomePage = observer(() => {
           >
             @supasonk_
           </a>
-          {', '}
+          {','}
           <a
             href="https://twitter.com/kaoths"
             target="_blank"
@@ -203,7 +203,7 @@ export const HomePage = observer(() => {
           >
             @kaoths
           </a>
-          {', '}
+          {','}
           <a
             href="https://twitter.com/0xWolfgang_"
             target="_blank"
@@ -212,7 +212,7 @@ export const HomePage = observer(() => {
           >
             @0xWolfgang_
           </a>
-          {', '}
+          {','}
           <a
             href="https://twitter.com/pchayvimol"
             target="_blank"
@@ -230,21 +230,16 @@ export const HomePage = observer(() => {
           >
             @mr_rogers0x
           </a>
-<<<<<<< HEAD
-          {', and '}
+          {','}
           <a
             href="https://twitter.com/Lunatics_cc"
             target="_blank"
             className="nes-text is-primary"
             rel="noreferrer"
           >
-=======
-          {','}
-          <a href="https://twitter.com/Lunatics_cc" target="_blank" className="nes-text is-primary" rel="noreferrer">
->>>>>>> origin/main
             @Lunatics_cc
           </a>
-          {', and'}
+          {' and '}
           <a href="https://twitter.com/france_astin" target="_blank" className="nes-text is-primary" rel="noreferrer">
             @france_astin
           </a>

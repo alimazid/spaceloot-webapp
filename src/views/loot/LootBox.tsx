@@ -38,6 +38,8 @@ const LootTransferModal = (props: { token_id: string; onClose: any; visible: boo
       } else {
         setIsError(true)
       }
+    } else {
+      setIsError(false)
     }
   }
 
@@ -45,6 +47,7 @@ const LootTransferModal = (props: { token_id: string; onClose: any; visible: boo
     if (walletService.validateAddress(recipient)) {
       const response = await spaceLootService.transfer(recipient, props.token_id)
       setIsTxSubmitted(true)
+      console.log(response)
       if (response?.result) {
         const result = response.result
         // update dialog text
@@ -104,9 +107,9 @@ const LootTransferModal = (props: { token_id: string; onClose: any; visible: boo
             <>
               <p>{txResult}</p>
               <p style={{ display: txUrl.length > 0 ? 'block' : 'none' }}>
-                <Link href={txUrl} passHref>
+                <a href={txUrl} target="_blank" rel="noreferrer" className="nes-text">
                   view on finder
-                </Link>
+                </a>
               </p>
               <button className="nes-btn is-primary" onClick={() => handleCloseDialog()}>
                 Close
