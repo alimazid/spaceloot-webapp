@@ -60,7 +60,7 @@ export const HomePage = observer(() => {
           toast(() => (
             <Box display="flex" flexDirection="column">
               <Typography className="nes-text is-success">#{tokenId} claimed</Typography>
-              <a className="nes-text is-primary" href={url} target="_blank">
+              <a className="nes-text is-primary" href={url} target="_blank" rel="noreferrer">
                 <Typography variant="subtitle2">View on finder</Typography>
               </a>
             </Box>
@@ -70,7 +70,7 @@ export const HomePage = observer(() => {
           toast(() => (
             <Box display="flex" flexDirection="column">
               <Typography className="nes-text is-error">claiming #{tokenId} reverted</Typography>
-              <a className="nes-text is-primary" href={url} target="_blank">
+              <a className="nes-text is-primary" href={url} target="_blank" rel="noreferrer">
                 <Typography variant="subtitle2">View on finder</Typography>
               </a>
             </Box>
