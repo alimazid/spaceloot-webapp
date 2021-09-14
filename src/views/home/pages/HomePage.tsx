@@ -61,7 +61,7 @@ export const HomePage = observer(() => {
 
   const handleClaim = async () => {
     setIsClaiming(true)
-    await spaceLootService.claim(tokenId.toString())
+    const response = await spaceLootService.claim(tokenId.toString())
     setIsClaiming(false)
   }
 

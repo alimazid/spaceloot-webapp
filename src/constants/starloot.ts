@@ -6,5 +6,5 @@ export const depositAssetInfoMap: { [sid: number]: AssetInfo } = {
 
 export const pollingIntervals = {
   contract: 7000,
-  network: 1000,
+  network: 5000,
 }
