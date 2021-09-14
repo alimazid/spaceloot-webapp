@@ -116,10 +116,19 @@ export const HomePage = observer(() => {
         </button>
       </Box>
       <Divider />
-      <FooterBox display="flex" alignItems="center" justifyContent="space-between" mx="auto" my={2} p={2}>
+      <FooterBox
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        mx="auto"
+        my={2}
+        p={2}
+      >
         <span className="nes-text is-error">
           <Link href="/traits" passHref>
-            <a><i className="nes-icon star" /> Check Your Spaceship Traits</a>
+            <a>
+              <i className="nes-icon star" /> Check Your Spaceship Traits
+            </a>
           </Link>
         </span>
       </FooterBox>
@@ -129,7 +138,8 @@ export const HomePage = observer(() => {
           <a
             href="https://twitter.com/spaceloot_nft"
             target="_blank"
-            className="nes-text is-warning" rel="noreferrer"
+            className="nes-text is-warning"
+            rel="noreferrer"
           >
             Twitter
           </a>
@@ -137,7 +147,8 @@ export const HomePage = observer(() => {
           <a
             href="https://t.me/joinchat/VJS63IYLV4oyYTE9"
             target="_blank"
-            className="nes-text is-warning" rel="noreferrer"
+            className="nes-text is-warning"
+            rel="noreferrer"
           >
             Telegram
           </a>
@@ -145,7 +156,8 @@ export const HomePage = observer(() => {
           <a
             href="https://discord.gg/ch2EmcbSdf"
             target="_blank"
-            className="nes-text is-warning" rel="noreferrer"
+            className="nes-text is-warning"
+            rel="noreferrer"
           >
             Discord
           </a>
@@ -168,37 +180,80 @@ export const HomePage = observer(() => {
           <a
             href="https://twitter.com/spaceloot_nft"
             target="_blank"
-            className="nes-text is-primary" rel="noreferrer"
+            className="nes-text is-primary"
+            rel="noreferrer"
           >
             @apemon_chan
           </a>
           {', '}
-          <a href="https://twitter.com/supasonk_" target="_blank" className="nes-text is-primary" rel="noreferrer">
+          <a
+            href="https://twitter.com/supasonk_"
+            target="_blank"
+            className="nes-text is-primary"
+            rel="noreferrer"
+          >
             @supasonk_
           </a>
           {', '}
-          <a href="https://twitter.com/kaoths" target="_blank" className="nes-text is-primary" rel="noreferrer">
+          <a
+            href="https://twitter.com/kaoths"
+            target="_blank"
+            className="nes-text is-primary"
+            rel="noreferrer"
+          >
             @kaoths
           </a>
           {', '}
-          <a href="https://twitter.com/0xWolfgang_" target="_blank" className="nes-text is-primary" rel="noreferrer">
+          <a
+            href="https://twitter.com/0xWolfgang_"
+            target="_blank"
+            className="nes-text is-primary"
+            rel="noreferrer"
+          >
             @0xWolfgang_
           </a>
           {', '}
-          <a href="https://twitter.com/pchayvimol" target="_blank" className="nes-text is-primary" rel="noreferrer">
+          <a
+            href="https://twitter.com/pchayvimol"
+            target="_blank"
+            className="nes-text is-primary"
+            rel="noreferrer"
+          >
             @pchayvimol
           </a>
           {','}
-          <a href="https://twitter.com/mr_rogers0x" target="_blank" className="nes-text is-primary" rel="noreferrer">
+          <a
+            href="https://twitter.com/mr_rogers0x"
+            target="_blank"
+            className="nes-text is-primary"
+            rel="noreferrer"
+          >
             @mr_rogers0x
           </a>
           {', and '}
-          <a href="https://twitter.com/Lunatics_cc" target="_blank" className="nes-text is-primary" rel="noreferrer">
+          <a
+            href="https://twitter.com/Lunatics_cc"
+            target="_blank"
+            className="nes-text is-primary"
+            rel="noreferrer"
+          >
             @Lunatics_cc
           </a>
           <br />
-          {'Special thanks to'} <a href="https://github.com/nostalgic-css/NES.css/" target="_blank" className="nes-text is-primary" rel="noreferrer">NES.css</a>
-          {' for awesome CSS'} <i className="nes-jp-logo is-small" style={{ transform: 'scale(0.5)', top: '7px', left: '-20px' }} />
+          {'Special thanks to'}{' '}
+          <a
+            href="https://github.com/nostalgic-css/NES.css/"
+            target="_blank"
+            className="nes-text is-primary"
+            rel="noreferrer"
+          >
+            NES.css
+          </a>
+          {' for awesome CSS'}{' '}
+          <i
+            className="nes-jp-logo is-small"
+            style={{ transform: 'scale(0.5)', top: '7px', left: '-20px' }}
+          />
         </span>
       </FooterBox>
     </BitStarBgContainer>

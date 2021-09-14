@@ -23,7 +23,7 @@ const LootProperty = (props: any) => {
   )
 }
 
-const LootTransferModal = (props: { token_id: string, onClose: any, visible: boolean }) => {
+const LootTransferModal = (props: { token_id: string; onClose: any; visible: boolean }) => {
   const [recipient, setRecipient] = useState<string>('')
   const [isError, setIsError] = useState<boolean>(false)
   const [isTxSubmitted, setIsTxSubmitted] = useState<boolean>(false)
@@ -45,7 +45,7 @@ const LootTransferModal = (props: { token_id: string, onClose: any, visible: boo
     if (walletService.validateAddress(recipient)) {
       const response = await spaceLootService.transfer(recipient, props.token_id)
       setIsTxSubmitted(true)
-      if(response?.result) {
+      if (response?.result) {
         const result = response.result
         // update dialog text
         const txHash = result.txhash
@@ -54,7 +54,7 @@ const LootTransferModal = (props: { token_id: string, onClose: any, visible: boo
         const url = networks[networkStore.name].finder + '/tx/' + txHash
         setTxUrl(url)
         // need to update hangar page ??
-      } else if(response?.error) {
+      } else if (response?.error) {
         const err = response.error
         setTxResult('transaction denied')
         setTxUrl('')
@@ -69,49 +69,53 @@ const LootTransferModal = (props: { token_id: string, onClose: any, visible: boo
   }
 
   return (
-      <div style={{ display: props.visible ? 'block' : 'none'}} className="nes-dialog" id="dialog-default">
-        <form method="dialog" style={{ minWidth: '680px' }}>
-          <p className="title">Transfer Address : Token ID {props.token_id}</p>
-            <input
-              type="text"
-              id="address"
-              className="nes-input"
-              value={recipient}
-              onChange={handleOnChange}
-              style={{ display: !isTxSubmitted ? 'block': 'none'}}
-            />
-            {isError && <span className="nes-text is-error">invalid address</span>}
-            <menu className="dialog-menu">
-              {!isTxSubmitted &&
-                <>
-                  <button className="nes-btn" onClick={() => handleCloseDialog()}>
-                    Cancel
-                  </button>
-                  <button
-                    className={`nes-btn ${!isError ? 'is-primary' : 'is-disabled'}`}
-                    disabled={isError}
-                    onClick={handleTransfer}
-                  >
-                    Confirm
-                  </button>
-                </>
-              }
-              {isTxSubmitted &&
-                <>
-                  <p>{txResult}</p>
-                  <p style={{display:txUrl.length > 0? 'block': 'none'}}>
-                    <Link href={txUrl} passHref>
-                      view on finder
-                    </Link>
-                  </p>
-                  <button className="nes-btn is-primary" onClick={() => handleCloseDialog()}>
-                    Close
-                  </button>
-                </>
-              }
-            </menu>
-        </form>
-      </div>
+    <div
+      style={{ display: props.visible ? 'block' : 'none' }}
+      className="nes-dialog"
+      id="dialog-default"
+    >
+      <form method="dialog" style={{ minWidth: '680px' }}>
+        <p className="title">Transfer Address : Token ID {props.token_id}</p>
+        <input
+          type="text"
+          id="address"
+          className="nes-input"
+          value={recipient}
+          onChange={handleOnChange}
+          style={{ display: !isTxSubmitted ? 'block' : 'none' }}
+        />
+        {isError && <span className="nes-text is-error">invalid address</span>}
+        <menu className="dialog-menu">
+          {!isTxSubmitted && (
+            <>
+              <button className="nes-btn" onClick={() => handleCloseDialog()}>
+                Cancel
+              </button>
+              <button
+                className={`nes-btn ${!isError ? 'is-primary' : 'is-disabled'}`}
+                disabled={isError}
+                onClick={handleTransfer}
+              >
+                Confirm
+              </button>
+            </>
+          )}
+          {isTxSubmitted && (
+            <>
+              <p>{txResult}</p>
+              <p style={{ display: txUrl.length > 0 ? 'block' : 'none' }}>
+                <Link href={txUrl} passHref>
+                  view on finder
+                </Link>
+              </p>
+              <button className="nes-btn is-primary" onClick={() => handleCloseDialog()}>
+                Close
+              </button>
+            </>
+          )}
+        </menu>
+      </form>
+    </div>
   )
 }
 
@@ -210,13 +214,17 @@ export const LootBox = observer(({ loot, hideOwner, transferable, ...props }: Pr
         </ul>
         {!hideOwner && <LootOwner owner={loot.owner} />}
         {transferable && (
-        <Box marginRight="20px">
-          <button type="button" className="nes-btn is-success" onClick={() => setVisible(true)}>
-            Transfer Loot!
-          </button>
-        </Box>
-      )}
-        <LootTransferModal token_id={loot.token_id.toString()} visible={visible} onClose={() => setVisible(false)} />
+          <Box marginRight="20px">
+            <button type="button" className="nes-btn is-success" onClick={() => setVisible(true)}>
+              Transfer Loot!
+            </button>
+          </Box>
+        )}
+        <LootTransferModal
+          token_id={loot.token_id.toString()}
+          visible={visible}
+          onClose={() => setVisible(false)}
+        />
       </div>
     </Box>
   )
