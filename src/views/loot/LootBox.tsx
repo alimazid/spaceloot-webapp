@@ -162,7 +162,7 @@ type Props = {
 }
 
 export const LootBox = observer(({ loot, hideOwner, transferable, ...props }: Props & BoxProps) => {
-  const [visible, setVisible] = useState<false>(false)
+  const [visible, setVisible] = useState<boolean>(false)
   if (!loot) {
     return (
       <Box className="nes-container is-dark with-title" {...props}>
