@@ -164,83 +164,106 @@ type Props = {
   loot?: Loot
   hideOwner?: boolean | string
   transferable?: boolean | string
+  transferredLoots: number[]
+  setTransferredLoots: any
 }
 
-export const LootBox = observer(({ loot, hideOwner, transferable, ...props }: Props & BoxProps) => {
-  const [visible, setVisible] = useState<boolean>(false)
-  const [transferred, setTransferred] = useState<boolean>(false)
+export const LootBox = observer(
+  ({
+    loot,
+    hideOwner,
+    transferable,
+    transferredLoots,
+    setTransferredLoots,
+    ...props
+  }: Props & BoxProps) => {
+    const [visible, setVisible] = useState<boolean>(false)
 
-  if (!loot) {
+    const isTransferred = (lootId: any): boolean => {
+      return transferredLoots.includes(lootId)
+    }
+
+    const setTransferred = (lootId: number): void => {
+      setTransferredLoots([...transferredLoots, lootId])
+    }
+
+    if (!loot) {
+      return (
+        <Box className="nes-container is-dark with-title" {...props}>
+          <p className="title">
+            Space Loot <RectSkeleton width={150} height={16} inline="true" />
+          </p>
+          <div className="lists">
+            <ul className="nes-list is-disc">
+              <RectSkeleton width={300} height={24} />
+              <RectSkeleton width={300} height={24} />
+              <RectSkeleton width={300} height={24} />
+              <RectSkeleton width={300} height={24} />
+              <RectSkeleton width={300} height={24} />
+              <RectSkeleton width={300} height={24} />
+              <RectSkeleton width={300} height={24} />
+            </ul>
+          </div>
+        </Box>
+      )
+    }
+
     return (
       <Box className="nes-container is-dark with-title" {...props}>
-        <p className="title">
-          Space Loot <RectSkeleton width={150} height={16} inline="true" />
-        </p>
+        <p className="title">Space Loot #{loot.token_id || '?'}</p>
         <div className="lists">
           <ul className="nes-list is-disc">
-            <RectSkeleton width={300} height={24} />
-            <RectSkeleton width={300} height={24} />
-            <RectSkeleton width={300} height={24} />
-            <RectSkeleton width={300} height={24} />
-            <RectSkeleton width={300} height={24} />
-            <RectSkeleton width={300} height={24} />
-            <RectSkeleton width={300} height={24} />
+            <LootProperty>
+              <span className="nes-text is-primary">🚢 Vessel Type:</span> {loot.vessel_type}
+            </LootProperty>
+            <LootProperty>
+              <span className="nes-text is-primary">🎖️ Class:</span> {loot.class}
+            </LootProperty>
+            <LootProperty>
+              <span className="nes-text is-primary">🔫 Weapon:</span> {loot.weapon}
+            </LootProperty>
+            <LootProperty>
+              <span className="nes-text is-primary">💣 Secondary Weapon:</span>{' '}
+              {loot.secondary_weapon}
+            </LootProperty>
+            <LootProperty>
+              <span className="nes-text is-primary">🛡️ Shield:</span> {loot.shield}
+            </LootProperty>
+            <LootProperty>
+              <span className="nes-text is-primary">🚀 Propulsion:</span> {loot.propulsion}
+            </LootProperty>
+            <LootProperty>
+              <span className="nes-text is-primary">🪨 Material:</span> {loot.material}
+            </LootProperty>
+            <LootProperty>
+              <span className="nes-text is-primary">🎁 Extra:</span> {loot.extra}
+            </LootProperty>
           </ul>
+          {!hideOwner && <LootOwner owner={loot.owner} />}
+          {transferable && (
+            <Box marginRight="20px">
+              <button
+                type="button"
+                className={`nes-btn ${
+                  !isTransferred(loot.token_id) ? 'is-success' : 'is-disabled'
+                }`}
+                disabled={isTransferred(loot.token_id)}
+                onClick={isTransferred(loot.token_id) ? () => {} : () => setVisible(true)}
+              >
+                {!isTransferred(loot.token_id)
+                  ? 'Transfer Loot!'
+                  : 'Transferred! The starship has left the hangar!'}
+              </button>
+            </Box>
+          )}
+          <LootTransferModal
+            token_id={loot.token_id.toString()}
+            visible={visible}
+            onClose={() => setVisible(false)}
+            onTransferred={() => setTransferred(loot.token_id)}
+          />
         </div>
       </Box>
     )
   }
-
-  return (
-    <Box className="nes-container is-dark with-title" {...props}>
-      <p className="title">Space Loot #{loot.token_id || '?'}</p>
-      <div className="lists">
-        <ul className="nes-list is-disc">
-          <LootProperty>
-            <span className="nes-text is-primary">🚢 Vessel Type:</span> {loot.vessel_type}
-          </LootProperty>
-          <LootProperty>
-            <span className="nes-text is-primary">🎖️ Class:</span> {loot.class}
-          </LootProperty>
-          <LootProperty>
-            <span className="nes-text is-primary">🔫 Weapon:</span> {loot.weapon}
-          </LootProperty>
-          <LootProperty>
-            <span className="nes-text is-primary">💣 Secondary Weapon:</span>{' '}
-            {loot.secondary_weapon}
-          </LootProperty>
-          <LootProperty>
-            <span className="nes-text is-primary">🛡️ Shield:</span> {loot.shield}
-          </LootProperty>
-          <LootProperty>
-            <span className="nes-text is-primary">🚀 Propulsion:</span> {loot.propulsion}
-          </LootProperty>
-          <LootProperty>
-            <span className="nes-text is-primary">🪨 Material:</span> {loot.material}
-          </LootProperty>
-          <LootProperty>
-            <span className="nes-text is-primary">🎁 Extra:</span> {loot.extra}
-          </LootProperty>
-        </ul>
-        {!hideOwner && <LootOwner owner={loot.owner} />}
-        {transferable && (
-          <Box marginRight="20px">
-            <button
-              type="button"
-              className={`nes-btn ${!transferred ? 'is-success' : 'is-disabled'}`}
-              onClick={() => setVisible(true)}
-            >
-              {!transferred ? 'Transfer Loot!' : 'Transferred! The starship has left the hangar!'}
-            </button>
-          </Box>
-        )}
-        <LootTransferModal
-          token_id={loot.token_id.toString()}
-          visible={visible}
-          onClose={() => setVisible(false)}
-          onTransferred={() => setTransferred(true)}
-        />
-      </div>
-    </Box>
-  )
-})
+)

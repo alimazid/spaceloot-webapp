@@ -84,7 +84,7 @@ export const HomePage = observer(() => {
         </Typography>
       </Box>
       <Box marginTop="24px" display="flex" justifyContent="center">
-        <LootBox loot={loot} />
+        <LootBox loot={loot} transferredLoots={[]} setTransferredLoots={() => {}} />
       </Box>
       <Box paddingTop="24px" display="flex" justifyContent="center" alignItems="center">
         <Box marginRight="20px">

@@ -66,6 +66,7 @@ export const HangarByAddress = observer(({ owner }: HangarProps) => {
   const [pageSize, setPageSize] = useState(5)
 
   const [transferable, setTransferable] = useState(false)
+  const [transferredLoots, setTransferredLoots] = useState([])
 
   const updateTransferable = useMemo(() => {
     const isOwned = walletStore.address === owner
@@ -112,7 +113,12 @@ export const HangarByAddress = observer(({ owner }: HangarProps) => {
         <HangarTitle totalLoots={totalLoots} owner={owner} />
       </Box>
       <Box display="flex" justifyContent="center">
-        <LootHangar loots={loots} transferable={transferable} />
+        <LootHangar
+          loots={loots}
+          transferable={transferable}
+          transferredLoots={transferredLoots}
+          setTransferredLoots={setTransferredLoots}
+        />
       </Box>
       {totalLoots > 0 && (
         <PaginatorBox
