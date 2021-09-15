@@ -228,7 +228,8 @@ export const LootBox = observer(({ loot, hideOwner, transferable, ...props }: Pr
             <button
               type="button"
               className={`nes-btn ${!transferred ? 'is-success' : 'is-disabled'}`}
-              onClick={() => setVisible(true)}
+              disabled={transferred}
+              onClick={transferred ? () => {} : () => setVisible(true)}
             >
               {!transferred ? 'Transfer Loot!' : 'Transferred! The starship has left the hangar!'}
             </button>
