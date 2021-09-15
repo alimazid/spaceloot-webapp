@@ -27,7 +27,7 @@ const LootTransferModal = (props: {
   token_id: string
   onClose: any
   visible: boolean
-  onTransferred: (boolean) => void
+  onTransferred: (transferred: boolean) => void
 }) => {
   const [recipient, setRecipient] = useState<string>('')
   const [isError, setIsError] = useState<boolean>(false)
