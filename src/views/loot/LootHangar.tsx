@@ -4,7 +4,7 @@ import { LootBox } from 'views/loot/LootBox'
 import { Loot } from 'interfaces/loot.interface'
 
 type Props = {
-  loots?: Loot[],
+  loots?: Loot[]
   transferable?: boolean | string
 }
 

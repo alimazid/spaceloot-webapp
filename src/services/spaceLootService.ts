@@ -36,7 +36,7 @@ class SpaceLootService {
     return response
   }
 
-  transfer = async(recipient: string, lootId: string) => {
+  transfer = async (recipient: string, lootId: string) => {
     if (!walletStore.isConnected) return
 
     const sender = walletStore.address

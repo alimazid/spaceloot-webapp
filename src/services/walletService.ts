@@ -98,9 +98,8 @@ class WalletService {
 
   validateAddress = (address: string) => {
     // simple validation, need more bech32 checker for advance validation
-    if(!address)
-      return false
-    return address.length === 44 && address.substring(0,5) === 'terra'
+    if (!address) return false
+    return address.length === 44 && address.substring(0, 5) === 'terra'
   }
 }
 

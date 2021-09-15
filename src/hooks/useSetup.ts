@@ -19,9 +19,12 @@ export const useSetup = () => {
         return
       }
 
+      // temporary disable this (because all loots are already claimed), to prevent station not sending txhash
+      /*
       pollingNetworkId = setInterval(() => {
         networkService.updateNetwork()
       }, pollingIntervals.network)
+      */
 
       pollingContractId = setInterval(() => {
         // Polling

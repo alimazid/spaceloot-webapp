@@ -23,9 +23,17 @@ const LootProperty = (props: any) => {
   )
 }
 
-const LootTransferModal = (props: { token_id: string, onClose: any, visible: boolean }) => {
+const LootTransferModal = (props: {
+  token_id: string
+  onClose: any
+  visible: boolean
+  onTransferred: (transferred: boolean) => void
+}) => {
   const [recipient, setRecipient] = useState<string>('')
   const [isError, setIsError] = useState<boolean>(false)
+  const [isTxSubmitted, setIsTxSubmitted] = useState<boolean>(false)
+  const [txResult, setTxResult] = useState<string>('')
+  const [txUrl, setTxUrl] = useState<string>('')
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== '') {
@@ -35,51 +43,87 @@ const LootTransferModal = (props: { token_id: string, onClose: any, visible: boo
       } else {
         setIsError(true)
       }
+    } else {
+      setIsError(false)
     }
   }
 
   const handleTransfer = async () => {
     if (walletService.validateAddress(recipient)) {
-      await spaceLootService.transfer(recipient, props.token_id)
+      const response = await spaceLootService.transfer(recipient, props.token_id)
+      setIsTxSubmitted(true)
+      console.log(response)
+      if (response?.result) {
+        const result = response.result
+        // update dialog text
+        const txHash = result.txhash
+        console.log(txHash)
+        setTxResult('submit transaction success')
+        const url = networks[networkStore.name].finder + '/tx/' + txHash
+        setTxUrl(url)
+        props.onTransferred(true)
+      } else if (response?.error) {
+        const err = response.error
+        setTxResult('transaction denied')
+        setTxUrl('')
+      }
     }
   }
 
-  // const handleTransferDialog = () => {
-  //   setRecipient('')
-  //   setIsError(false)
-  // }
-
   const handleCloseDialog = () => {
     setRecipient('')
+    setIsTxSubmitted(false)
     props.onClose()
   }
 
   return (
-      <div style={{ display: props.visible ? 'block' : 'none'}} className="nes-dialog" id="dialog-default">
-        <form method="dialog" style={{ minWidth: '680px' }}>
-          <p className="title">Transfer Address : Token ID {props.token_id}</p>
-          <input
-            type="text"
-            id="address"
-            className="nes-input"
-            value={recipient}
-            onChange={handleOnChange}
-          />
-          {isError && <span className="nes-text is-error">invalid address</span>}
-          <menu className="dialog-menu">
-            <button className="nes-btn" onClick={() => handleCloseDialog()}>
-              Cancel
-            </button>
-            <button
-              className={`nes-btn ${!isError ? 'is-primary' : 'is-disabled'}`}
-              disabled={isError}
-              onClick={handleTransfer}
-            >
-              Confirm
-            </button>
-          </menu>
-        </form>
-      </div>
+    <div
+      style={{ display: props.visible ? 'block' : 'none' }}
+      className="nes-dialog"
+      id="dialog-default"
+    >
+      <form method="dialog" style={{ minWidth: '680px' }}>
+        <p className="title">Transfer Address : Token ID {props.token_id}</p>
+        <input
+          type="text"
+          id="address"
+          className="nes-input"
+          value={recipient}
+          onChange={handleOnChange}
+          style={{ display: !isTxSubmitted ? 'block' : 'none' }}
+        />
+        {isError && <span className="nes-text is-error">invalid address</span>}
+        <menu className="dialog-menu">
+          {!isTxSubmitted && (
+            <>
+              <button className="nes-btn" onClick={() => handleCloseDialog()}>
+                Cancel
+              </button>
+              <button
+                className={`nes-btn ${!isError ? 'is-primary' : 'is-disabled'}`}
+                disabled={isError}
+                onClick={handleTransfer}
+              >
+                Confirm
+              </button>
+            </>
+          )}
+          {isTxSubmitted && (
+            <>
+              <p>{txResult}</p>
+              <p style={{ display: txUrl.length > 0 ? 'block' : 'none' }}>
+                <a href={txUrl} target="_blank" rel="noreferrer" className="nes-text">
+                  view on finder
+                </a>
+              </p>
+              <button className="nes-btn is-primary" onClick={() => handleCloseDialog()}>
+                Close
+              </button>
+            </>
+          )}
+        </menu>
+      </form>
+    </div>
   )
 }
 
@@ -123,7 +167,9 @@ type Props = {
 }
 
 export const LootBox = observer(({ loot, hideOwner, transferable, ...props }: Props & BoxProps) => {
-  const [visible, setVisible] = useState<false>(false)
+  const [visible, setVisible] = useState<boolean>(false)
+  const [transferred, setTransferred] = useState<boolean>(false)
+
   if (!loot) {
     return (
       <Box className="nes-container is-dark with-title" {...props}>
@@ -178,13 +224,22 @@ export const LootBox = observer(({ loot, hideOwner, transferable, ...props }: Pr
         </ul>
         {!hideOwner && <LootOwner owner={loot.owner} />}
         {transferable && (
-        <Box marginRight="20px">
-          <button type="button" className="nes-btn is-success" onClick={() => setVisible(true)}>
-            Transfer Loot!
-          </button>
-        </Box>
-      )}
-        <LootTransferModal token_id={loot.token_id.toString()} visible={visible} onClose={() => setVisible(false)} />
+          <Box marginRight="20px">
+            <button
+              type="button"
+              className={`nes-btn ${!transferred ? 'is-success' : 'is-disabled'}`}
+              onClick={() => setVisible(true)}
+            >
+              {!transferred ? 'Transfer Loot!' : 'Transferred! The starship has left the hangar!'}
+            </button>
+          </Box>
+        )}
+        <LootTransferModal
+          token_id={loot.token_id.toString()}
+          visible={visible}
+          onClose={() => setVisible(false)}
+          onTransferred={() => setTransferred(true)}
+        />
       </div>
     </Box>
   )
