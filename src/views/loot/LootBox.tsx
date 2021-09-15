@@ -23,7 +23,12 @@ const LootProperty = (props: any) => {
   )
 }
 
-const LootTransferModal = (props: { token_id: string; onClose: any; visible: boolean }) => {
+const LootTransferModal = (props: {
+  token_id: string
+  onClose: any
+  visible: boolean
+  onTransferred: () => void
+}) => {
   const [recipient, setRecipient] = useState<string>('')
   const [isError, setIsError] = useState<boolean>(false)
   const [isTxSubmitted, setIsTxSubmitted] = useState<boolean>(false)
@@ -56,7 +61,7 @@ const LootTransferModal = (props: { token_id: string; onClose: any; visible: boo
         setTxResult('submit transaction success')
         const url = networks[networkStore.name].finder + '/tx/' + txHash
         setTxUrl(url)
-        // need to update hangar page ??
+        props.onTransferred(true)
       } else if (response?.error) {
         const err = response.error
         setTxResult('transaction denied')
@@ -163,6 +168,8 @@ type Props = {
 
 export const LootBox = observer(({ loot, hideOwner, transferable, ...props }: Props & BoxProps) => {
   const [visible, setVisible] = useState<boolean>(false)
+  const [transferred, setTransferred] = useState<boolean>(false)
+
   if (!loot) {
     return (
       <Box className="nes-container is-dark with-title" {...props}>
@@ -218,8 +225,12 @@ export const LootBox = observer(({ loot, hideOwner, transferable, ...props }: Pr
         {!hideOwner && <LootOwner owner={loot.owner} />}
         {transferable && (
           <Box marginRight="20px">
-            <button type="button" className="nes-btn is-success" onClick={() => setVisible(true)}>
-              Transfer Loot!
+            <button
+              type="button"
+              className={`nes-btn ${!transferred ? 'is-success' : 'is-disabled'}`}
+              onClick={() => setVisible(true)}
+            >
+              {!transferred ? 'Transfer Loot!' : 'Transferred! The starship has left the hangar!'}
             </button>
           </Box>
         )}
@@ -227,6 +238,7 @@ export const LootBox = observer(({ loot, hideOwner, transferable, ...props }: Pr
           token_id={loot.token_id.toString()}
           visible={visible}
           onClose={() => setVisible(false)}
+          onTransferred={() => setTransferred(true)}
         />
       </div>
     </Box>
