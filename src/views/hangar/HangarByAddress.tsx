@@ -11,6 +11,7 @@ import { maskWalletAddress } from 'utils/wallet.utils'
 import { paginate } from 'utils/pagination.utils'
 import styled from '@emotion/styled'
 import { clamp } from 'utils/number.utils'
+import Link from 'next/link'
 
 type TitleProps = {
   totalLoots?: number
