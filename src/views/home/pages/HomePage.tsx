@@ -174,81 +174,9 @@ export const HomePage = observer(() => {
         textAlign="center"
       >
         <span className="nes-text" style={{ marginBottom: 6 }}>
-          Made with <i className="nes-icon heart" /> by
+          Made with <i className="nes-icon heart" /> by spaceloot team
         </span>
         <span className="nes-text">
-          <a
-            href="https://twitter.com/spaceloot_nft"
-            target="_blank"
-            className="nes-text is-primary"
-            rel="noreferrer"
-          >
-            @apemon_chan
-          </a>
-          {','}
-          <a
-            href="https://twitter.com/supasonk_"
-            target="_blank"
-            className="nes-text is-primary"
-            rel="noreferrer"
-          >
-            @supasonk_
-          </a>
-          {','}
-          <a
-            href="https://twitter.com/kaoths"
-            target="_blank"
-            className="nes-text is-primary"
-            rel="noreferrer"
-          >
-            @kaoths
-          </a>
-          {','}
-          <a
-            href="https://twitter.com/0xWolfgang_"
-            target="_blank"
-            className="nes-text is-primary"
-            rel="noreferrer"
-          >
-            @0xWolfgang_
-          </a>
-          {','}
-          <a
-            href="https://twitter.com/pchayvimol"
-            target="_blank"
-            className="nes-text is-primary"
-            rel="noreferrer"
-          >
-            @pchayvimol
-          </a>
-          {','}
-          <a
-            href="https://twitter.com/mr_rogers0x"
-            target="_blank"
-            className="nes-text is-primary"
-            rel="noreferrer"
-          >
-            @mr_rogers0x
-          </a>
-          {','}
-          <a
-            href="https://twitter.com/Lunatics_cc"
-            target="_blank"
-            className="nes-text is-primary"
-            rel="noreferrer"
-          >
-            @Lunatics_cc
-          </a>
-          {' and '}
-          <a
-            href="https://twitter.com/france_astin"
-            target="_blank"
-            className="nes-text is-primary"
-            rel="noreferrer"
-          >
-            @france_astin
-          </a>
-          <br />
           {'Special thanks to'}{' '}
           <a
             href="https://github.com/nostalgic-css/NES.css/"
