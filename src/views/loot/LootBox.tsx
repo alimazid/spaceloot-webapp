@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react'
+import type { ReactNode } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Box, BoxProps } from '@material-ui/core'
 import { Loot } from 'interfaces/loot.interface'
@@ -10,7 +11,7 @@ import { maskWalletAddress } from 'utils/wallet.utils'
 import { Skeleton } from '@material-ui/lab'
 import Link from 'next/link'
 
-const LootProperty = (props: any) => {
+const LootProperty = ({ children }: { children: ReactNode }) => {
   return (
     <li
       style={{
@@ -18,14 +19,14 @@ const LootProperty = (props: any) => {
         textIndent: '-2em',
       }}
     >
-      {props.children}
+      {children}
     </li>
   )
 }
 
 const LootTransferModal = (props: {
   token_id: string
-  onClose: any
+  onClose: () => void
   visible: boolean
   onTransferred: (transferred: boolean) => void
 }) => {
@@ -164,7 +165,7 @@ type Props = {
   loot?: Loot
   hideOwner?: boolean | string
   transferable?: boolean | string
-  transferredLoots: number[]
+  transferredLoots: string[]
   setTransferredLoots: any
 }
 
@@ -179,11 +180,11 @@ export const LootBox = observer(
   }: Props & BoxProps) => {
     const [visible, setVisible] = useState<boolean>(false)
 
-    const isTransferred = (lootId: any): boolean => {
+    const isTransferred = (lootId: string): boolean => {
       return transferredLoots.includes(lootId)
     }
 
-    const setTransferred = (lootId: number): void => {
+    const setTransferred = (lootId: string): void => {
       setTransferredLoots([...transferredLoots, lootId])
     }
 
@@ -257,7 +258,7 @@ export const LootBox = observer(
             </Box>
           )}
           <LootTransferModal
-            token_id={loot.token_id.toString()}
+            token_id={loot.token_id}
             visible={visible}
             onClose={() => setVisible(false)}
             onTransferred={() => setTransferred(loot.token_id)}
